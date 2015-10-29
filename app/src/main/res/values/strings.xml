@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DotDash</string>
+    <string name="title_activity_io">IOActivity</string>
 </resources>
