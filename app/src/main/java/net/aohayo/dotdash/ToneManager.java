@@ -18,6 +18,14 @@ public class ToneManager implements AudioTrack.OnPlaybackPositionUpdateListener{
         this.frequency = frequency;
     }
 
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
     public void startTone() {
         generatorRunnable = new ToneGenerator(this);
         generatorThread = new Thread(generatorRunnable);
@@ -45,8 +53,9 @@ public class ToneManager implements AudioTrack.OnPlaybackPositionUpdateListener{
         // Code inspired by http://stackoverflow.com/a/3731075 and http://stackoverflow.com/a/6776463
 
         private static final int SAMPLE_RATE = 44100;
+        private static final int BUFFER_UPDATE_FREQUENCY = 10;
 
-        private Object pauseLock;
+        private final Object pauseLock;
         private boolean paused;
         private boolean finished;
         private ToneManager toneManager;
@@ -77,11 +86,23 @@ public class ToneManager implements AudioTrack.OnPlaybackPositionUpdateListener{
             audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO,
                     AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
             audioTrack.setPlaybackPositionUpdateListener(toneManager);
+            audioTrack.play();
         }
 
         private void generateSound() {
-            while(!finished) {
-                for(int i = 0; i < bufferSize/2; i++){
+            boolean firstIteration = true;
+            while (!finished) {
+
+                int numSamplesToGenerate;
+                if (firstIteration) {
+                    firstIteration = false;
+                    numSamplesToGenerate = bufferSize;
+                    audioTrack.setPositionNotificationPeriod(bufferSize / (BUFFER_UPDATE_FREQUENCY * 2));
+                } else {
+                    numSamplesToGenerate = bufferSize / BUFFER_UPDATE_FREQUENCY;
+                }
+
+                for (int i = 0; i < numSamplesToGenerate/2; i++) {
                     phase += 2 * Math.PI / (SAMPLE_RATE / frequency);
                     // scale to maximum amplitude
                     final short val = (short) ((Math.sin(phase) * 32767));
@@ -91,13 +112,7 @@ public class ToneManager implements AudioTrack.OnPlaybackPositionUpdateListener{
                 }
 
                 int currentMarkerFrame = audioTrack.getNotificationMarkerPosition();
-                if (currentMarkerFrame == 0) {
-                    audioTrack.setPositionNotificationPeriod(bufferSize / 4);
-                } else {
-                    audioTrack.setPositionNotificationPeriod(bufferSize / 2);
-                }
-                audioTrack.write(generatedSound, currentMarkerFrame, bufferSize);
-                audioTrack.play();
+                audioTrack.write(generatedSound, currentMarkerFrame, bufferSize / BUFFER_UPDATE_FREQUENCY);
 
                 paused = true;
                 synchronized (pauseLock) {
@@ -105,6 +120,7 @@ public class ToneManager implements AudioTrack.OnPlaybackPositionUpdateListener{
                         try {
                             pauseLock.wait();
                         } catch (InterruptedException e) {
+                            // Thread resumed, nothing to do here
                         }
                     }
                 }
