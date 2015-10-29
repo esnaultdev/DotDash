@@ -5,16 +5,11 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 
 public class ToneManager implements AudioTrack.OnPlaybackPositionUpdateListener{
-    private int frequency = 450;
+    private int frequency;
     private Thread generatorThread;
     private ToneGenerator generatorRunnable;
 
-    public ToneManager() {
-
-    }
-
     public ToneManager(int frequency) {
-        super();
         this.frequency = frequency;
     }
 

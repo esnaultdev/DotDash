@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="tone_freq_min">400</integer>
+    <integer name="tone_freq_max">1000</integer>
+    <integer name="tone_freq_step">50</integer>
+    <integer name="default_tone_freq">550</integer>
+</resources>
