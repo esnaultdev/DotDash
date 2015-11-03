@@ -20,23 +20,20 @@ public class ToneManager implements AudioTrack.OnPlaybackPositionUpdateListener{
     }
 
     public void startTone() {
-        Log.d("ToneManager", "StartTone signal");
         generator.startTone();
     }
 
     public void stopTone() {
-        Log.d("ToneManager", "StopTone signal");
         generator.stopTone();
     }
 
     @Override
     public void onMarkerReached(AudioTrack audioTrack) {
-
+        generator.updateBuffer();
     }
 
     @Override
     public void onPeriodicNotification(AudioTrack audioTrack) {
-        Log.d("ToneManager", "UpdateBuffer signal");
         generator.updateBuffer();
     }
 }

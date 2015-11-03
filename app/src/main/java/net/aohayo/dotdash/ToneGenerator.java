@@ -6,28 +6,25 @@ import android.media.AudioTrack;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 public class ToneGenerator extends Thread {
     // Code inspired by http://stackoverflow.com/a/3731075
 
-    private static final int SAMPLE_RATE = 44100;
-    private static final int EASING_DURATION = 400;// frames
+    private static final int SAMPLE_RATE = 8000;
+    private static final int NB_EASING_PERIODS = 5;
 
     private Handler handler;
     private ToneManager toneManager;
-    private Status status;
 
     private AudioTrack audioTrack;
-    private int bufferSize;
-    private byte generatedSound[];
-    private double phase;
+    private short soundBuffer[];
+    private short fadeInBuffer[];
+    private short fadeOutBuffer[];
     private int frequency;
 
     public ToneGenerator(ToneManager toneManager, int frequency) {
         this.toneManager = toneManager;
         this.frequency = frequency;
-        status = Status.STOPPED;
     }
 
     public void setFrequency(int frequency) {
@@ -35,18 +32,21 @@ public class ToneGenerator extends Thread {
     }
 
     public void startTone() {
+        // Log.d("ToneManager", "StartToneMessage sent");
         Message msg = Message.obtain();
         msg.obj = ToneGeneratorHandler.START_TONE_MESSAGE_STRING;
         handler.sendMessage(msg);
     }
 
     public void updateBuffer() {
+        // Log.d("ToneManager", "UpdateBufferMessage sent");
         Message msg = Message.obtain();
         msg.obj = ToneGeneratorHandler.UPDATE_BUFFER_MESSAGE_STRING;
         handler.sendMessage(msg);
     }
 
     public void stopTone() {
+        // Log.d("ToneManager", "StopToneMessage sent");
         Message msg = Message.obtain();
         msg.obj = ToneGeneratorHandler.STOP_TONE_MESSAGE_STRING;
         handler.sendMessage(msg);
@@ -69,26 +69,37 @@ public class ToneGenerator extends Thread {
     }
 
     private void preExecute() {
-        bufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
-        generatedSound = new byte[bufferSize];
+        int minBufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT) / (Short.SIZE / 8);
+        double nbFramesPerPeriod = (double) SAMPLE_RATE / frequency;
+        int i = (int) (minBufferSize / nbFramesPerPeriod) + 1;
+        // TODO: Compute better buffer sizes for smooth transition
+        while (nbFramesPerPeriod * i != (int)(nbFramesPerPeriod * i)) {
+            i++;
+        }
+        int soundBufferSize = (int) (nbFramesPerPeriod * i) * 10;
+        soundBuffer = new short[soundBufferSize];
+        int fadeBufferSize = NB_EASING_PERIODS * SAMPLE_RATE / frequency;
+        fadeInBuffer = new short[fadeBufferSize];
+        fadeOutBuffer = new short[fadeBufferSize];
+        generateSounds();
+
         audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
+                AudioFormat.ENCODING_PCM_16BIT, soundBufferSize * Short.SIZE / 8, AudioTrack.MODE_STREAM);
         audioTrack.setPlaybackPositionUpdateListener(toneManager);
     }
 
-    private void generateSound(boolean fadeIn, boolean fadeOut) {
-        for (int i = 0; i < bufferSize/2; i++) {
-            phase += 2 * Math.PI / (SAMPLE_RATE / frequency);
-            // scale to maximum amplitude
-            short val = (short) ((Math.sin(phase) * 32767));
-            if (fadeIn) {
-                val *= easeOutCubic(i, EASING_DURATION, false);
-            } else if (fadeOut) {
-                val *= easeOutCubic(i, EASING_DURATION, true);
-            }
-            // in 16 bit wav PCM, first byte is the low order byte
-            generatedSound[2*i] = (byte) (val & 0x00ff);
-            generatedSound[2*i + 1] = (byte) ((val & 0xff00) >>> 8);
+    private void generateSounds() {
+        double phase = 0.0;
+        for (int i = 0; i < soundBuffer.length; i++) {
+            phase += 2 * Math.PI * frequency / SAMPLE_RATE;
+            soundBuffer[i] = (short) ((Math.sin(phase) * Short.MAX_VALUE)); // scale to maximum amplitude
+        }
+        phase = 0.0;
+        for (int i = 0; i < fadeInBuffer.length; i++) {
+            phase += 2 * Math.PI *frequency / SAMPLE_RATE;
+            short val = (short) ((Math.sin(phase) * Short.MAX_VALUE));
+            fadeInBuffer[i] = (short) (val * easeOutCubic(i, fadeInBuffer.length, false));
+            fadeOutBuffer[i] = (short) (val * easeOutCubic(i, fadeOutBuffer.length, true));
         }
     }
 
@@ -126,48 +137,30 @@ public class ToneGenerator extends Thread {
             String messageString = (String) msg.obj;
             switch (messageString) {
                 case START_TONE_MESSAGE_STRING:
-                    audioTrack.pause();
-                    audioTrack.flush();
-                    phase = 0.0;
-                    audioTrack.setPositionNotificationPeriod(bufferSize/3);
-                    generateSound(true, false);
-                    audioTrack.write(generatedSound, 0, bufferSize);
+                    if (audioTrack.getState() != AudioTrack.PLAYSTATE_STOPPED) {
+                        audioTrack.pause();
+                        audioTrack.flush();
+                    }
+                    audioTrack.write(fadeInBuffer, 0, fadeInBuffer.length);
+                    audioTrack.write(soundBuffer, 0, soundBuffer.length);
                     audioTrack.play();
-
-                    status = Status.PLAYING;
+                    audioTrack.setNotificationMarkerPosition(soundBuffer.length);
                     break;
 
                 case UPDATE_BUFFER_MESSAGE_STRING:
-                    Log.d("ToneGenerator", "UpdateBuffer frame: " + audioTrack.getPlaybackHeadPosition() + ", bufferSize: " + bufferSize);
-                    if (status == Status.STOPPING) {
-                        audioTrack.pause();
-                        audioTrack.flush();
-                        status = Status.STOPPED;
-                    } else {
-                        generateSound(false, false);
-                        audioTrack.write(generatedSound, 0, bufferSize);
-                    }
+                    int currentFrame = audioTrack.getPlaybackHeadPosition();
+                    audioTrack.setNotificationMarkerPosition(currentFrame + soundBuffer.length);
+                    audioTrack.write(soundBuffer, 0, soundBuffer.length);
                     break;
 
                 case STOP_TONE_MESSAGE_STRING:
                     audioTrack.pause();
                     audioTrack.flush();
-                    audioTrack.setPositionNotificationPeriod(0);
-                    int currentFrame = audioTrack.getPlaybackHeadPosition();
-                    phase = 2 * Math.PI * currentFrame / (SAMPLE_RATE / frequency);
-                    generateSound(false, true);
-                    audioTrack.write(generatedSound, 0, bufferSize);
-                    audioTrack.play();
-
-                    status = Status.STOPPING;
+                    audioTrack.setNotificationMarkerPosition(0);
+                    // TODO: Write soundBuffer frames until next period then write fadeOutBuffer frames
+                    audioTrack.stop();
                     break;
             }
         }
-    }
-
-    private enum Status {
-        PLAYING,
-        STOPPING,
-        STOPPED
     }
 }
