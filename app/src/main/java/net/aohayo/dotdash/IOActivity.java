@@ -10,9 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class IOActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class IOActivity extends AppCompatActivity {
     private ToneManager toneManager;
-    private FrequencyList frequencyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,29 +36,6 @@ public class IOActivity extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        frequencyList = new FrequencyList(this);
-        String[] frequenciesInteger = new String[frequencyList.getSize()];
-        for (int i = 0; i < frequenciesInteger.length; i++) {
-            frequenciesInteger[i] = frequencyList.getFrequency(i) + "Hz";
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frequenciesInteger);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(frequencyList.getDefaultFrequencyIndex());
-        spinner.setOnItemSelectedListener(this);
-
-        toneManager = new ToneManager(frequencyList.getDefaultFrequency());
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        int frequency = frequencyList.getFrequency(position);
-        toneManager.setFrequency(frequency);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
+        toneManager = new ToneManager();
     }
 }

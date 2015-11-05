@@ -1,39 +1,21 @@
 package net.aohayo.dotdash;
 
+import android.media.AudioManager;
 import android.media.AudioTrack;
-import android.util.Log;
+import android.media.ToneGenerator;
 
-public class ToneManager implements AudioTrack.OnPlaybackPositionUpdateListener{
+public class ToneManager {
     private ToneGenerator generator;
 
-    public ToneManager(int frequency) {
-        generator = new ToneGenerator(this, frequency);
-        generator.start();
-    }
-
-    public void release() {
-        generator.finish();
-    }
-
-    public void setFrequency(int frequency) {
-        generator.setFrequency(frequency);
+    public ToneManager() {
+        generator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
     }
 
     public void startTone() {
-        generator.startTone();
+        generator.startTone(ToneGenerator.TONE_CDMA_DIAL_TONE_LITE);
     }
 
     public void stopTone() {
         generator.stopTone();
-    }
-
-    @Override
-    public void onMarkerReached(AudioTrack audioTrack) {
-        generator.updateBuffer();
-    }
-
-    @Override
-    public void onPeriodicNotification(AudioTrack audioTrack) {
-        generator.updateBuffer();
     }
 }
