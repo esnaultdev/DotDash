@@ -15,6 +15,16 @@ public class ScreenOutput implements MorseOutput {
     }
 
     @Override
+    public void init() {
+        outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOff));
+    }
+
+    @Override
+    public void finish() {
+        outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOn));
+    }
+
+    @Override
     public void start() {
         outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOn));
     }

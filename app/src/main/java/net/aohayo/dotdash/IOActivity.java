@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IOActivity extends AppCompatActivity {
-    private MorseOutput output;
+    private List<MorseOutput> outputs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,18 +20,28 @@ public class IOActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        output = new AudioOutput();
+        outputs = new ArrayList<>();
+        outputs.add(new AudioOutput());
+        outputs.add(new ScreenOutput(this, findViewById(R.id.content_layout)));
+
+        for (int i = 0; i < outputs.size(); i++) {
+            outputs.get(i).init();
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                switch(event.getAction()) {
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        output.start();
+                        for (int i = 0; i < outputs.size(); i++) {
+                            outputs.get(i).start();
+                        }
                         return true;
                     case MotionEvent.ACTION_UP:
-                        output.stop();
+                        for (int i = 0; i < outputs.size(); i++) {
+                            outputs.get(i).stop();
+                        }
                         return true;
                 }
                 return false;

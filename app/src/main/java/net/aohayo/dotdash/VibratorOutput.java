@@ -11,6 +11,16 @@ public class VibratorOutput implements MorseOutput {
     }
 
     @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void finish() {
+
+    }
+
+    @Override
     public void start() {
         vibrator.vibrate(new long[]{1000}, 0);
     }

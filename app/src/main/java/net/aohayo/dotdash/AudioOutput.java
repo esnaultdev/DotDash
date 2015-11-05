@@ -11,6 +11,16 @@ public class AudioOutput implements MorseOutput {
     }
 
     @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void finish() {
+
+    }
+
+    @Override
     public void start() {
         generator.startTone(ToneGenerator.TONE_CDMA_DIAL_TONE_LITE);
     }
