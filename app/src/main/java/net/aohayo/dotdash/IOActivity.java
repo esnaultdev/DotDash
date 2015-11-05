@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class IOActivity extends AppCompatActivity {
-    private ToneManager toneManager;
+    private MorseOutput output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,22 +20,22 @@ public class IOActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        output = new AudioOutput();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        toneManager.startTone();
+                        output.start();
                         return true;
                     case MotionEvent.ACTION_UP:
-                        toneManager.stopTone();
+                        output.stop();
                         return true;
                 }
                 return false;
             }
         });
-
-        toneManager = new ToneManager();
     }
 }
