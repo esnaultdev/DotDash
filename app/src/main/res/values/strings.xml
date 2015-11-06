@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">DotDash</string>
     <string name="title_activity_io">IOActivity</string>
+    <string name="output_selection_dialog_title">Select your outputs</string>
+    <string name="output_selection_sound">Sound</string>
+    <string name="output_selection_screen">Screen</string>
+    <string name="output_selection_vibrator">Vibrator</string>
+    <string name="menu_cancel">Cancel</string>
+    <string name="menu_select">Select</string>
 </resources>

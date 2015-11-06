@@ -20,6 +20,9 @@ public class IOActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        OutputSelectionFragment outputSelection = new OutputSelectionFragment();
+        outputSelection.show(getFragmentManager(), "outputSelection");
+
         outputs = new ArrayList<>();
         outputs.add(new AudioOutput());
         outputs.add(new ScreenOutput(this, findViewById(R.id.content_layout)));
