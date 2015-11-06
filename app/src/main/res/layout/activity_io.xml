@@ -25,11 +25,12 @@
     <include layout="@layout/content_io" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:id="@+id/morse_input_fab"
+        android:layout_width="@dimen/morse_input_fab_size"
+        android:layout_height="@dimen/morse_input_fab_size"
+        android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_notifications_white_24dp" />
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_music_note_white_48dp" />
 
 </android.support.design.widget.CoordinatorLayout>
