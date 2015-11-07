@@ -1,5 +1,6 @@
 package net.aohayo.dotdash;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IOActivity extends AppCompatActivity {
+public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener{
     private List<MorseOutput> outputs;
 
     @Override
@@ -22,14 +23,6 @@ public class IOActivity extends AppCompatActivity {
 
         OutputSelectionFragment outputSelection = new OutputSelectionFragment();
         outputSelection.show(getFragmentManager(), "outputSelection");
-
-        outputs = new ArrayList<>();
-        outputs.add(new AudioOutput());
-        outputs.add(new ScreenOutput(this, findViewById(R.id.content_layout)));
-
-        for (int i = 0; i < outputs.size(); i++) {
-            outputs.get(i).init();
-        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.morse_input_fab);
         fab.setOnTouchListener(new View.OnTouchListener() {
@@ -50,5 +43,24 @@ public class IOActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onOutputDialogPositiveClick(DialogFragment dialog) {
+        boolean[] selectedOutputs = ((OutputSelectionFragment) dialog).getSelectedOutputs();
+        outputs = new ArrayList<>();
+        if (selectedOutputs[0]) {
+            outputs.add(new AudioOutput());
+        }
+        if (selectedOutputs[1]) {
+            outputs.add(new ScreenOutput(this, findViewById(R.id.content_layout)));
+        }
+        if (selectedOutputs[2]) {
+            outputs.add(new VibratorOutput(this));
+        }
+
+        for (int i = 0; i < outputs.size(); i++) {
+            outputs.get(i).init();
+        }
     }
 }

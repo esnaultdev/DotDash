@@ -1,11 +1,17 @@
 package net.aohayo.dotdash;
 
-public interface MorseOutput {
-    boolean isAvailable();
-    void init();
-    void finish();
+import android.content.Context;
 
-    void start();
-    void start(int duration);
-    void stop();
+public abstract class MorseOutput {
+    public void init() {
+
+    }
+
+    public void finish() {
+
+    }
+
+    public abstract void start();
+    public abstract void start(int duration);
+    public abstract void stop();
 }

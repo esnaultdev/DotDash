@@ -3,21 +3,11 @@ package net.aohayo.dotdash;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 
-public class AudioOutput implements MorseOutput {
+public class AudioOutput extends MorseOutput {
     private ToneGenerator generator;
 
     public AudioOutput() {
         generator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void finish() {
-
     }
 
     @Override
@@ -33,10 +23,5 @@ public class AudioOutput implements MorseOutput {
     @Override
     public void stop() {
         generator.stopTone();
-    }
-
-    @Override
-    public boolean isAvailable() {
-        return true;
     }
 }

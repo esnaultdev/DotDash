@@ -3,21 +3,11 @@ package net.aohayo.dotdash;
 import android.content.Context;
 import android.os.Vibrator;
 
-public class VibratorOutput implements MorseOutput {
+public class VibratorOutput extends MorseOutput {
     private Vibrator vibrator;
 
     public VibratorOutput(Context context) {
         this.vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void finish() {
-
     }
 
     @Override
@@ -35,8 +25,7 @@ public class VibratorOutput implements MorseOutput {
         vibrator.cancel();
     }
 
-    @Override
-    public boolean isAvailable() {
-        return vibrator.hasVibrator();
+    public static boolean isAvailable(Context context) {
+        return ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).hasVibrator();
     }
 }

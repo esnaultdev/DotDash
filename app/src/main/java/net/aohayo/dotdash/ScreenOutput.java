@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.view.View;
 
-public class ScreenOutput implements MorseOutput {
+public class ScreenOutput extends MorseOutput {
     View outputView;
     Context context;
     CountDownTimer timer;
@@ -50,10 +50,5 @@ public class ScreenOutput implements MorseOutput {
         if (timer != null) {
             timer.cancel();
         }
-    }
-
-    @Override
-    public boolean isAvailable() {
-        return true;
     }
 }

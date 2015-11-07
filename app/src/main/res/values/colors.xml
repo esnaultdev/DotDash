@@ -5,4 +5,5 @@
     <color name="colorAccent">#17bef1</color>
     <color name="screenOutputOn">#ffffff</color>
     <color name="screenOutputOff">#000000</color>
+    <color name="itemSeparator">#c0c0c0</color>
 </resources>
