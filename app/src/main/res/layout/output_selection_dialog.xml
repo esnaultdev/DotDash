@@ -25,7 +25,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/sound_output_layout">
+            android:id="@+id/sound_output_layout"
+            android:clickable="true">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -72,7 +73,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/screen_output_layout">
+            android:id="@+id/screen_output_layout"
+            android:clickable="true">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -118,7 +120,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/vibrator_output_layout">
+            android:id="@+id/vibrator_output_layout"
+            android:clickable="true">
 
             <FrameLayout
                 android:layout_width="wrap_content"

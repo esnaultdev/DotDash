@@ -11,8 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 
-public class OutputSelectionFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener{
+public class OutputSelectionFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
     public interface DialogListener {
         void onOutputDialogPositiveClick(DialogFragment dialog);
@@ -72,6 +73,13 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 soundCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
                 screenCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
                 vibratorCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
+
+                RelativeLayout soundOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.sound_output_layout);
+                RelativeLayout screenOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.screen_output_layout);
+                RelativeLayout vibratorOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.vibrator_output_layout);
+                soundOutputLayout.setOnClickListener(OutputSelectionFragment.this);
+                screenOutputLayout.setOnClickListener(OutputSelectionFragment.this);
+                vibratorOutputLayout.setOnClickListener(OutputSelectionFragment.this);
             }
         });
         return dialog;
@@ -110,6 +118,27 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
             }
         }
         selectButton.setEnabled(enabled);
+    }
+
+    @Override
+    public void onClick(View v) {
+        CheckBox checkBox;
+        switch (v.getId()) {
+            case R.id.sound_output_layout:
+                checkBox = (CheckBox) v.findViewById(R.id.sound_output_checkbox);
+                checkBox.toggle();
+                break;
+            case R.id.screen_output_layout:
+                checkBox = (CheckBox) v.findViewById(R.id.screen_output_checkbox);
+                checkBox.toggle();
+                break;
+            case R.id.vibrator_output_layout:
+                checkBox = (CheckBox) v.findViewById(R.id.vibrator_output_checkbox);
+                checkBox.toggle();
+                break;
+            default:
+                break;
+        }
     }
 
     public boolean[] getSelectedOutputs() {
