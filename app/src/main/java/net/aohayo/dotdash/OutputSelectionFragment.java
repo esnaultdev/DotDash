@@ -17,10 +17,11 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
 
     public interface DialogListener {
         void onOutputDialogPositiveClick(DialogFragment dialog);
+        void onOutputDialogPreviousClick(DialogFragment dialog);
     }
 
-    DialogListener dialogListener;
-    boolean[] selectedOutputs = new boolean[3];
+    private DialogListener dialogListener;
+    private boolean[] selectedOutputs = new boolean[3];
 
     @Override
     public void onAttach(Activity activity) {
@@ -29,7 +30,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
             dialogListener = (DialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement NoticeDialogListener");
+                    + " must implement DialogListener");
         }
     }
 
@@ -45,6 +46,11 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 .setPositiveButton(R.string.menu_select, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialogListener.onOutputDialogPositiveClick(OutputSelectionFragment.this);
+                    }
+                })
+                .setNeutralButton(R.string.menu_previous, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialogListener.onOutputDialogPreviousClick(OutputSelectionFragment.this);
                     }
                 })
                 .setNegativeButton(R.string.menu_cancel, new DialogInterface.OnClickListener() {

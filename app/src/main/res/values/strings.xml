@@ -11,4 +11,5 @@
     <string name="input_selection_text">Text</string>
     <string name="menu_cancel">Cancel</string>
     <string name="menu_select">Select</string>
+    <string name="menu_previous">Previous</string>
 </resources>

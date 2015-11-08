@@ -24,4 +24,13 @@
 
     <include layout="@layout/content_io" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/morse_input_fab"
+        android:layout_width="@dimen/morse_input_fab_size"
+        android:layout_height="@dimen/morse_input_fab_size"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/ic_access_point_white"
+        android:visibility="gone"/>
+
 </android.support.design.widget.CoordinatorLayout>

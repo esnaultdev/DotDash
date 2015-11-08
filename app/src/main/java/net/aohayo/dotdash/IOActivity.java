@@ -12,7 +12,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener{
+public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener, InputSelectionFragment.DialogListener {
     private List<MorseOutput> outputs;
 
     @Override
@@ -22,8 +22,8 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        OutputSelectionFragment outputSelection = new OutputSelectionFragment();
-        outputSelection.show(getFragmentManager(), "outputSelection");
+        InputSelectionFragment inputSelection = new InputSelectionFragment();
+        inputSelection.show(getFragmentManager(), "inputSelection");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.morse_input_fab);
         fab.setOnTouchListener(new View.OnTouchListener() {
@@ -74,6 +74,28 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     }
 
     @Override
+    public void onInputDialogPositiveClick(DialogFragment dialog) {
+        InputSelectionFragment.Input selectedInput;
+        selectedInput = ((InputSelectionFragment) dialog).getSelectedInput();
+        switch (selectedInput) {
+            case FAB_BUTTON:
+                findViewById(R.id.morse_input_fab).setVisibility(View.VISIBLE);
+                findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
+                break;
+            case LARGE_BUTTON:
+                findViewById(R.id.morse_input_large_button).setVisibility(View.VISIBLE);
+                findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
+                break;
+            case TEXT:
+                break;
+            default:
+                break;
+        }
+        OutputSelectionFragment outputSelection = new OutputSelectionFragment();
+        outputSelection.show(getFragmentManager(), "outputSelection");
+    }
+
+    @Override
     public void onOutputDialogPositiveClick(DialogFragment dialog) {
         boolean[] selectedOutputs = ((OutputSelectionFragment) dialog).getSelectedOutputs();
         outputs = new ArrayList<>();
@@ -90,5 +112,13 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         for (int i = 0; i < outputs.size(); i++) {
             outputs.get(i).init();
         }
+    }
+
+    @Override
+    public void onOutputDialogPreviousClick(DialogFragment dialog) {
+        findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
+        findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
+        InputSelectionFragment inputSelection = new InputSelectionFragment();
+        inputSelection.show(getFragmentManager(), "inputSelection");
     }
 }
