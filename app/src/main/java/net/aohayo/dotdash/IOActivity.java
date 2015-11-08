@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,6 +36,33 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                         }
                         return true;
                     case MotionEvent.ACTION_UP:
+                        for (int i = 0; i < outputs.size(); i++) {
+                            outputs.get(i).stop();
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        CardView card = (CardView) findViewById(R.id.morse_input_large_button);
+        card.setMaxCardElevation(getResources().getDimensionPixelSize(R.dimen.button_elevation_pressed));
+        card.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                CardView card = (CardView) view;
+                float elevation;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        elevation = getResources().getDimensionPixelSize(R.dimen.button_elevation_pressed);
+                        card.setCardElevation(elevation);
+                        for (int i = 0; i < outputs.size(); i++) {
+                            outputs.get(i).start();
+                        }
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        elevation = getResources().getDimensionPixelSize(R.dimen.button_elevation_resting);
+                        card.setCardElevation(elevation);
                         for (int i = 0; i < outputs.size(); i++) {
                             outputs.get(i).stop();
                         }
