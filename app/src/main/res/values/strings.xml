@@ -5,6 +5,10 @@
     <string name="output_selection_sound">Sound</string>
     <string name="output_selection_screen">Screen</string>
     <string name="output_selection_vibrator">Vibrator</string>
+    <string name="input_selection_dialog_title">Select your input</string>
+    <string name="input_selection_fab">Small button</string>
+    <string name="input_selection_large_button">Large button</string>
+    <string name="input_selection_text">Text</string>
     <string name="menu_cancel">Cancel</string>
     <string name="menu_select">Select</string>
 </resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/input_selection_dialog_title"
+        android:id="@+id/textView"
+        android:textSize="24sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="15dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_input_layout"
+            android:clickable="true">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="10dp"
+                android:id="@+id/frameLayout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    android:src="@mipmap/ic_smartphone_fab_white_48dp" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/input_selection_fab"
+                android:id="@+id/textView2"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/frameLayout"
+                android:layout_toEndOf="@+id/frameLayout"
+                android:layout_marginLeft="15dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/itemSeparator"
+            android:id="@+id/screen_output_separator" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/large_button_input_layout"
+            android:clickable="true">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="10dp"
+                android:id="@+id/frameLayout2" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView4"
+                    android:src="@mipmap/ic_smartphone_large_button_white_48dp" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/input_selection_large_button"
+                android:id="@+id/textView3"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/frameLayout2"
+                android:layout_toEndOf="@+id/frameLayout2"
+                android:layout_marginLeft="15dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/itemSeparator"
+            android:id="@+id/vibrator_output_separator" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_input_layout"
+            android:clickable="true">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="10dp"
+                android:id="@+id/frameLayout3" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView3"
+                    android:src="@mipmap/ic_alphabetical_white"
+                    android:background="@color/colorAccent" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/input_selection_text"
+                android:id="@+id/textView4"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/frameLayout3"
+                android:layout_toEndOf="@+id/frameLayout3"
+                android:layout_marginLeft="15dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
