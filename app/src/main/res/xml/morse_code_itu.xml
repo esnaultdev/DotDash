@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<morse_code>
+    <durations>
+        <duration element="dot">1</duration>
+        <duration element="dash">3</duration>
+        <duration element="tiny_gap">1</duration>
+        <duration element="short_gap">3</duration>
+        <duration element="medium_gap">7</duration>
+    </durations>
+    <codes>
+        <code character="A">.-</code>
+        <code character="B">-...</code>
+        <code character="C">-.-.</code>
+        <code character="D">-..</code>
+        <code character="E">.</code>
+        <code character="F">..-.</code>
+        <code character="G">--.</code>
+        <code character="H">....</code>
+        <code character="I">..</code>
+        <code character="J">.---</code>
+        <code character="K">-.-</code>
+        <code character="L">.-..</code>
+        <code character="M">--</code>
+        <code character="N">-.</code>
+        <code character="O">---</code>
+        <code character="P">.--.</code>
+        <code character="Q">--.-</code>
+        <code character="R">.-.</code>
+        <code character="S">...</code>
+        <code character="T">-</code>
+        <code character="U">..-</code>
+        <code character="V">...-</code>
+        <code character="W">.--</code>
+        <code character="X">-..-</code>
+        <code character="Y">-.--</code>
+        <code character="Z">--..</code>
+        <code character="1">.----</code>
+        <code character="2">..---</code>
+        <code character="3">...--</code>
+        <code character="4">....-</code>
+        <code character="5">.....</code>
+        <code character="6">-....</code>
+        <code character="7">--...</code>
+        <code character="8">---..</code>
+        <code character="9">----.</code>
+        <code character="0">-----</code>
+    </codes>
+</morse_code>
