@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IOActivity"
+            android:name="inputoutput.IOActivity"
             android:label="@string/title_activity_io"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

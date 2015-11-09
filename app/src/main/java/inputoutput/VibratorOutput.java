@@ -1,4 +1,4 @@
-package net.aohayo.dotdash;
+package inputoutput;
 
 import android.content.Context;
 import android.os.Vibrator;

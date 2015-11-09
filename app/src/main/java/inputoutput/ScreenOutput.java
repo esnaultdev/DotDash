@@ -1,8 +1,10 @@
-package net.aohayo.dotdash;
+package inputoutput;
 
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.view.View;
+
+import net.aohayo.dotdash.R;
 
 public class ScreenOutput extends MorseOutput {
     View outputView;

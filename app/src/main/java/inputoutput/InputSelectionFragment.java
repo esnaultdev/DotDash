@@ -1,4 +1,4 @@
-package net.aohayo.dotdash;
+package inputoutput;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import net.aohayo.dotdash.R;
 
 public class InputSelectionFragment extends DialogFragment implements View.OnClickListener{
 

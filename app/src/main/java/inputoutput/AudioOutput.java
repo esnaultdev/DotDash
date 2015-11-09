@@ -1,4 +1,4 @@
-package net.aohayo.dotdash;
+package inputoutput;
 
 import android.media.AudioManager;
 import android.media.ToneGenerator;

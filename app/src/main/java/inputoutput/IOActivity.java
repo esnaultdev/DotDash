@@ -1,4 +1,4 @@
-package net.aohayo.dotdash;
+package inputoutput;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
+
+import net.aohayo.dotdash.R;
 
 import java.util.ArrayList;
 import java.util.List;
