@@ -14,8 +14,9 @@ import net.aohayo.dotdash.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener, InputSelectionFragment.DialogListener {
+public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener, InputSelectionFragment.DialogListener, TextInput.InputListener {
     private List<MorseOutput> outputs;
+    private TextInput textInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
                 break;
             case TEXT:
+                textInput = new TextInput(this, this);
                 break;
             default:
                 break;
@@ -114,6 +116,9 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         for (int i = 0; i < outputs.size(); i++) {
             outputs.get(i).init();
         }
+        if (textInput != null) {
+            textInput.sendText("This is a test!");
+        }
     }
 
     @Override
@@ -122,5 +127,12 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
         InputSelectionFragment inputSelection = new InputSelectionFragment();
         inputSelection.show(getFragmentManager(), "inputSelection");
+    }
+
+    @Override
+    public void onOutputStart(int duration) {
+        for (int i = 0; i < outputs.size(); i++) {
+            outputs.get(i).start(duration);
+        }
     }
 }
