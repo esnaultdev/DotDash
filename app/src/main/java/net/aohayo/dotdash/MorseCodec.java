@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class MorseCodec {
     private int[] durations = new int[5];
-    private HashMap<String, MorseElement[]> codes;
+    private HashMap<Character, MorseElement[]> codes;
 
     public MorseCodec(Context context, int codeId) {
         codes = new HashMap<>();
@@ -24,30 +24,32 @@ public class MorseCodec {
         boolean inDuration = false;
         boolean inCode = false;
         int durationIndex = 0;
-        String character = "";
+        Character character = '\0';
         try {
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
-                    if (parser.getName() == "duration") {
+                    if (parser.getName().equals("duration")) {
                         inDuration = true;
-                    } else if (parser.getName() == "code") {
+                    } else if (parser.getName().equals("code")) {
                         inCode = true;
-                        character = parser.getAttributeValue("", "character");
+                        character = parser.getAttributeValue(null, "character").charAt(0);
                     }
                 } else if (eventType == XmlPullParser.END_TAG) {
-                    if (parser.getName() == "duration") {
+                    if (parser.getName().equals("duration")) {
                         inDuration = false;
                         durationIndex++;
-                    } else if (parser.getName() == "code") {
+                    } else if (parser.getName().equals("code")) {
                         inCode = false;
                     }
                 } else if (eventType == XmlPullParser.TEXT) {
                     String text = parser.getText();
-                    if (inDuration) {
-                        durations[durationIndex] = Integer.getInteger(text);
-                    } else if (inCode) {
-                        codes.put(character, getElements(text));
+                    if (text != null) {
+                        if (inDuration) {
+                            durations[durationIndex] = Integer.parseInt(text);
+                        } else if (inCode) {
+                            codes.put(character, getElements(text));
+                        }
                     }
                 }
                 eventType = parser.next();
@@ -60,13 +62,16 @@ public class MorseCodec {
     }
 
     private MorseElement[] getElements(String dotsAndDashes) {
-        MorseElement[] result = new MorseElement[dotsAndDashes.length()];
+        MorseElement[] result = new MorseElement[2*dotsAndDashes.length() - 1];
         for (int i = 0; i < dotsAndDashes.length(); i++) {
             char current = dotsAndDashes.charAt(i);
             if (current == '.') {
-                result[i] = MorseElement.DOT;
+                result[2*i] = MorseElement.DOT;
             } else if (current == '-') {
-                result[i] = MorseElement.DASH;
+                result[2*i] = MorseElement.DASH;
+            }
+            if (2*i + 1 < result.length) {
+                result[2*i + 1] = MorseElement.TINY_GAP;
             }
         }
         return result;
@@ -89,8 +94,12 @@ public class MorseCodec {
         }
     }
 
-    public MorseElement[] getCode(String character) {
-        return codes.get(character);
+    public MorseElement[] getCode(Character c) {
+        if (!codes.containsKey(c)) {
+            return new MorseElement[0];
+        } else {
+            return codes.get(c);
+        }
     }
 
 }
