@@ -1,6 +1,8 @@
-package net.aohayo.dotdash;
+package net.aohayo.dotdash.inputoutput;
 
 import android.content.Context;
+
+import net.aohayo.dotdash.R;
 
 public class FrequencyList {
     private int[] frequencies;

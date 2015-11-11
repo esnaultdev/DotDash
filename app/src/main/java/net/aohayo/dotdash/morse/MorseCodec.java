@@ -1,4 +1,4 @@
-package net.aohayo.dotdash;
+package net.aohayo.dotdash.morse;
 
 import android.content.Context;
 import android.content.res.XmlResourceParser;

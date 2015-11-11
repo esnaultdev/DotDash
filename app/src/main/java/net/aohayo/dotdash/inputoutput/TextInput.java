@@ -1,10 +1,10 @@
-package inputoutput;
+package net.aohayo.dotdash.inputoutput;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
-import net.aohayo.dotdash.MorseCodec;
-import net.aohayo.dotdash.MorseElement;
+import net.aohayo.dotdash.morse.MorseCodec;
+import net.aohayo.dotdash.morse.MorseElement;
 import net.aohayo.dotdash.R;
 
 import java.util.Arrays;

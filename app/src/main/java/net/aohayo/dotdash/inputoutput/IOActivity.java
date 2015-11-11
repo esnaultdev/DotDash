@@ -1,4 +1,4 @@
-package inputoutput;
+package net.aohayo.dotdash.inputoutput;
 
 import android.app.DialogFragment;
 import android.os.Bundle;

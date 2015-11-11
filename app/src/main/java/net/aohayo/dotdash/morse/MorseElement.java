@@ -1,4 +1,4 @@
-package net.aohayo.dotdash;
+package net.aohayo.dotdash.morse;
 
 public enum MorseElement {
     DOT,

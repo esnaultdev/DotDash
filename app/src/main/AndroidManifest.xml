@@ -10,14 +10,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+        <activity android:name="net.aohayo.dotdash.main.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="inputoutput.IOActivity"
+            android:name="net.aohayo.dotdash.inputoutput.IOActivity"
             android:label="@string/title_activity_io"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
