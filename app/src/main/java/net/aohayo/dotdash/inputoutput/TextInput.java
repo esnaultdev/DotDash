@@ -14,7 +14,8 @@ import java.util.Queue;
 public class TextInput {
 
     public interface InputListener {
-        void onOutputStart(int duration);
+        void onOutputStart();
+        void onOutputStop();
     }
 
     private InputListener listener;
@@ -104,13 +105,14 @@ public class TextInput {
             while (currentElement != null && !isCancelled()) {
                 int duration = morseCodec.getDuration(currentElement) * unitDuration;
                 if (currentElement == MorseElement.DOT || currentElement == MorseElement.DASH) {
-                    listener.onOutputStart(duration);
+                    listener.onOutputStart();
                 }
                 try {
                     Thread.sleep(duration);
                 } catch (Exception e) {
                     e.getLocalizedMessage();
                 }
+                listener.onOutputStop();
                 currentElement = elements.poll();
             }
             return null;

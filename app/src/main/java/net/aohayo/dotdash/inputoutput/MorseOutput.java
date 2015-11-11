@@ -12,6 +12,5 @@ public abstract class MorseOutput {
     }
 
     public abstract void start();
-    public abstract void start(int duration);
     public abstract void stop();
 }

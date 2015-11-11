@@ -16,11 +16,6 @@ public class AudioOutput extends MorseOutput {
     }
 
     @Override
-    public void start(int duration) {
-        generator.startTone(ToneGenerator.TONE_CDMA_DIAL_TONE_LITE, duration);
-    }
-
-    @Override
     public void stop() {
         generator.stopTone();
     }

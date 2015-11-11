@@ -16,11 +16,6 @@ public class VibratorOutput extends MorseOutput {
     }
 
     @Override
-    public void start(int duration) {
-        vibrator.vibrate(duration);
-    }
-
-    @Override
     public void stop() {
         vibrator.cancel();
     }

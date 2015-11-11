@@ -130,9 +130,26 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     }
 
     @Override
-    public void onOutputStart(int duration) {
-        for (int i = 0; i < outputs.size(); i++) {
-            outputs.get(i).start(duration);
-        }
+    public void onOutputStart() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < outputs.size(); i++) {
+                    outputs.get(i).start();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onOutputStop() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < outputs.size(); i++) {
+                    outputs.get(i).stop();
+                }
+            }
+        });
     }
 }
