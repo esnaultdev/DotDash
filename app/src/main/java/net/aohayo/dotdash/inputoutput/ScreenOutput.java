@@ -1,9 +1,7 @@
 package net.aohayo.dotdash.inputoutput;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 
 import net.aohayo.dotdash.R;

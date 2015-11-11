@@ -6,8 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import net.aohayo.dotdash.R;
 
@@ -74,6 +78,23 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 return false;
             }
         });
+
+        EditText editText = (EditText) findViewById(R.id.morse_input_text);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    String text = v.getText().toString();
+                    if (text.length() > 0) {
+                        textInput.sendText(v.getText().toString());
+                        v.setText("");
+                    }
+                    handled = true;
+                }
+                return handled;
+            }
+        });
     }
 
     @Override
@@ -84,12 +105,17 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
             case FAB_BUTTON:
                 findViewById(R.id.morse_input_fab).setVisibility(View.VISIBLE);
                 findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
+                findViewById(R.id.morse_input_text).setVisibility(View.GONE);
                 break;
             case LARGE_BUTTON:
                 findViewById(R.id.morse_input_large_button).setVisibility(View.VISIBLE);
                 findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
+                findViewById(R.id.morse_input_text).setVisibility(View.GONE);
                 break;
             case TEXT:
+                findViewById(R.id.morse_input_text).setVisibility(View.VISIBLE);
+                findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
+                findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
                 textInput = new TextInput(this, this);
                 break;
             default:
@@ -115,9 +141,6 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
 
         for (int i = 0; i < outputs.size(); i++) {
             outputs.get(i).init();
-        }
-        if (textInput != null) {
-            textInput.sendText("This is a test!");
         }
     }
 

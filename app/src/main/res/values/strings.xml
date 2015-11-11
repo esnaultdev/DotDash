@@ -12,4 +12,5 @@
     <string name="menu_cancel">Cancel</string>
     <string name="menu_select">Select</string>
     <string name="menu_previous">Previous</string>
+    <string name="morse_input_text_hint">Text to send</string>
 </resources>

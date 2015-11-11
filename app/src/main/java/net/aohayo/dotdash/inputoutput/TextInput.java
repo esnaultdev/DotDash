@@ -31,7 +31,6 @@ public class TextInput {
         morseCodec = new MorseCodec(context, R.xml.morse_code_itu);
         texts = new LinkedList<>();
         elements = new LinkedList<>();
-        sendTask = new SendTask();
     }
 
     public void sendText(String text) {
@@ -59,6 +58,9 @@ public class TextInput {
         protected void onPreExecute() {
             text = texts.peek().toCharArray();
             isSpace = new boolean[text.length];
+            if (elements.size() > 0) {
+                elements.add(MorseElement.MEDIUM_GAP);
+            }
         }
 
         @Override
@@ -89,7 +91,8 @@ public class TextInput {
                 trTask = new TranslationTask();
                 trTask.execute();
             }
-            if (sendTask.getStatus() != Status.RUNNING) {
+            if (sendTask == null || sendTask.getStatus() != Status.RUNNING) {
+                sendTask = new SendTask();
                 sendTask.execute();
             }
         }
