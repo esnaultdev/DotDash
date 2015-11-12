@@ -19,7 +19,8 @@
         <activity
             android:name="net.aohayo.dotdash.inputoutput.IOActivity"
             android:label="@string/title_activity_io"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" >
         </activity>
     </application>
 

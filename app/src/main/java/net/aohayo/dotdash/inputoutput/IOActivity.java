@@ -105,15 +105,15 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
             case FAB_BUTTON:
                 findViewById(R.id.morse_input_fab).setVisibility(View.VISIBLE);
                 findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
-                findViewById(R.id.morse_input_text).setVisibility(View.GONE);
+                findViewById(R.id.morse_input_text_card).setVisibility(View.GONE);
                 break;
             case LARGE_BUTTON:
                 findViewById(R.id.morse_input_large_button).setVisibility(View.VISIBLE);
                 findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
-                findViewById(R.id.morse_input_text).setVisibility(View.GONE);
+                findViewById(R.id.morse_input_text_card).setVisibility(View.GONE);
                 break;
             case TEXT:
-                findViewById(R.id.morse_input_text).setVisibility(View.VISIBLE);
+                findViewById(R.id.morse_input_text_card).setVisibility(View.VISIBLE);
                 findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
                 findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
                 textInput = new TextInput(this, this);
