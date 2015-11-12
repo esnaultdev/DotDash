@@ -7,6 +7,7 @@ import net.aohayo.dotdash.morse.MorseCodec;
 import net.aohayo.dotdash.morse.MorseElement;
 import net.aohayo.dotdash.R;
 
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -34,7 +35,10 @@ public class TextInput {
     }
 
     public void sendText(String text) {
-        texts.add(text.toUpperCase());
+        String formattedText = Normalizer.normalize(text, Normalizer.Form.NFD);
+        formattedText = formattedText.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        formattedText = formattedText.toUpperCase();
+        texts.add(formattedText);
         if (texts.size() == 1) {
             trTask = new TranslationTask();
             trTask.execute();
