@@ -5,6 +5,7 @@ import android.os.Vibrator;
 
 public class VibratorOutput extends MorseOutput {
     private Vibrator vibrator;
+    private long[] pattern = {0, 10000, 0};
 
     public VibratorOutput(Context context) {
         this.vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -12,7 +13,7 @@ public class VibratorOutput extends MorseOutput {
 
     @Override
     public void start() {
-        vibrator.vibrate(new long[]{1000}, 0);
+        vibrator.vibrate(pattern, 0);
     }
 
     @Override
