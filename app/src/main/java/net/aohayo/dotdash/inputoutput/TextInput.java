@@ -50,7 +50,20 @@ public class TextInput {
             trTask.cancel(false);
         }
         if (sendTask != null) {
+            sendTask.resume();
             sendTask.cancel(true);
+        }
+    }
+
+    public void pause() {
+        if (sendTask != null) {
+            sendTask.pause();
+        }
+    }
+
+    public void resume() {
+        if (sendTask != null) {
+            sendTask.resume();
         }
     }
 
@@ -103,13 +116,26 @@ public class TextInput {
     }
 
     private class SendTask extends AsyncTask<Void, Void, Void> {
+        static final long RETRY_DURATION = 200;
+        private boolean paused = false;
+        private Thread backgroundThread;
+
         @Override
         protected Void doInBackground(Void... params) {
             if (elements.size() == 0) {
                 return null;
             }
+            backgroundThread = Thread.currentThread();
             MorseElement currentElement = elements.poll();
             while (currentElement != null && !isCancelled()) {
+                while (paused) {
+                    try {
+                        Thread.sleep(RETRY_DURATION);
+                    } catch (InterruptedException e) {
+
+                    }
+                }
+
                 int duration = morseCodec.getDuration(currentElement) * unitDuration;
                 if (currentElement == MorseElement.DOT || currentElement == MorseElement.DASH) {
                     listener.onOutputStart();
@@ -123,6 +149,15 @@ public class TextInput {
                 currentElement = elements.poll();
             }
             return null;
+        }
+
+        public void pause() {
+            paused = true;
+        }
+
+        public void resume() {
+            paused = false;
+            backgroundThread.interrupt();
         }
     }
 }

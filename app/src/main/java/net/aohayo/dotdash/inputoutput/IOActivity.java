@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -95,6 +96,22 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 return handled;
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (textInput != null) {
+            textInput.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (textInput != null) {
+            textInput.resume();
+        }
     }
 
     @Override
