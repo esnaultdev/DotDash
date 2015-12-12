@@ -20,7 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener, InputSelectionFragment.DialogListener, TextInput.InputListener {
+    static final String STATE_OUTPUTS = "outputs";
+    static final String STATE_INPUT = "input";
+
     private List<MorseOutput> outputs;
+    private MorseInput currentInput = MorseInput.NONE;
+    boolean[] selectedOutputs;
     private TextInput textInput;
 
     @Override
@@ -115,8 +120,27 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (textInput != null) {
+            textInput.cancel();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putSerializable(STATE_INPUT, currentInput);
+        savedInstanceState.putBooleanArray(STATE_OUTPUTS, selectedOutputs);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
     public void onInputDialogPositiveClick(DialogFragment dialog) {
-        InputSelectionFragment.Input selectedInput;
+        MorseInput selectedInput;
         selectedInput = ((InputSelectionFragment) dialog).getSelectedInput();
         switch (selectedInput) {
             case FAB_BUTTON:
@@ -136,15 +160,17 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 textInput = new TextInput(this, this);
                 break;
             default:
+            case NONE:
                 break;
         }
+        currentInput = selectedInput;
         OutputSelectionFragment outputSelection = new OutputSelectionFragment();
         outputSelection.show(getFragmentManager(), "outputSelection");
     }
 
     @Override
     public void onOutputDialogPositiveClick(DialogFragment dialog) {
-        boolean[] selectedOutputs = ((OutputSelectionFragment) dialog).getSelectedOutputs();
+        selectedOutputs = ((OutputSelectionFragment) dialog).getSelectedOutputs();
         outputs = new ArrayList<>();
         if (selectedOutputs[0]) {
             outputs.add(new AudioOutput());

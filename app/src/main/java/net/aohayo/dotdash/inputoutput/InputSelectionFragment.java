@@ -18,14 +18,8 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
         void onInputDialogPositiveClick(DialogFragment dialog);
     }
 
-    public enum Input {
-        FAB_BUTTON,
-        LARGE_BUTTON,
-        TEXT
-    }
-
     private DialogListener dialogListener;
-    private Input selectedInput;
+    private MorseInput selectedInput;
 
 
     @Override
@@ -41,7 +35,7 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        selectedInput = Input.FAB_BUTTON;
+        selectedInput = MorseInput.FAB_BUTTON;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -74,24 +68,24 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_input_layout:
-                selectedInput = Input.FAB_BUTTON;
+                selectedInput = MorseInput.FAB_BUTTON;
                 dialogListener.onInputDialogPositiveClick(this);
                 getDialog().dismiss();
                 break;
             case R.id.large_button_input_layout:
-                selectedInput = Input.LARGE_BUTTON;
+                selectedInput = MorseInput.LARGE_BUTTON;
                 dialogListener.onInputDialogPositiveClick(this);
                 getDialog().dismiss();
                 break;
             case R.id.text_input_layout:
-                selectedInput = Input.TEXT;
+                selectedInput = MorseInput.TEXT;
                 dialogListener.onInputDialogPositiveClick(this);
                 getDialog().dismiss();
                 break;
         }
     }
 
-    public Input getSelectedInput() {
+    public MorseInput getSelectedInput() {
         return selectedInput;
     }
 }
