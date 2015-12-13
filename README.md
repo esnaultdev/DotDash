@@ -1,4 +1,7 @@
 # DotDash
 
-DotDash is an Android application to learn the Morse code and communicate with it.
+DotDash is an Android application to learn Morse code.
 
+# License
+
+DotDash is under the GPL v2 license.

@@ -21,7 +21,7 @@
             android:name=".inputoutput.IOActivity"
             android:label="@string/title_activity_io"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>
