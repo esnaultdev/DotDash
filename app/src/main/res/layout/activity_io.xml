@@ -30,7 +30,7 @@
         android:layout_height="@dimen/morse_input_fab_size"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_access_point_white"
+        android:src="@mipmap/ic_access_point_white_48dp"
         android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>
