@@ -38,7 +38,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        showInputSelectionDialog();
+        showInputSelectionDialog(true);
 
         setUIListeners();
     }
@@ -54,7 +54,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.input:
-                showInputSelectionDialog();
+                showInputSelectionDialog(false);
                 return true;
             case R.id.outputs:
                 showOutputSelectionDialog(false);
@@ -123,7 +123,9 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 break;
         }
         currentInput = selectedInput;
-        showOutputSelectionDialog(true);
+        if (dialog.getArguments().getBoolean(InputSelectionFragment.hasNextDialog)) {
+            showOutputSelectionDialog(true);
+        }
     }
 
     @Override
@@ -147,9 +149,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
 
     @Override
     public void onOutputDialogPreviousClick(DialogFragment dialog) {
-        findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
-        findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
-        showInputSelectionDialog();
+        showInputSelectionDialog(true);
     }
 
     @Override
@@ -176,8 +176,11 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         });
     }
 
-    private void showInputSelectionDialog() {
+    private void showInputSelectionDialog(boolean hasNextDialog) {
         InputSelectionFragment inputSelection = new InputSelectionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(InputSelectionFragment.hasNextDialog, hasNextDialog);
+        inputSelection.setArguments(bundle);
         inputSelection.show(getFragmentManager(), "inputSelection");
     }
 

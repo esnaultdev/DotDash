@@ -12,7 +12,8 @@ import android.widget.RelativeLayout;
 
 import net.aohayo.dotdash.R;
 
-public class InputSelectionFragment extends DialogFragment implements View.OnClickListener{
+public class InputSelectionFragment extends DialogFragment implements View.OnClickListener {
+    public static final String hasNextDialog = "nextDialog";
 
     public interface DialogListener {
         void onInputDialogPositiveClick(DialogFragment dialog);
