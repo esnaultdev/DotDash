@@ -21,10 +21,12 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
     public interface DialogListener {
         void onOutputDialogPositiveClick(DialogFragment dialog);
         void onOutputDialogPreviousClick(DialogFragment dialog);
+        void onOuptutDialogCancelClick(DialogFragment dialog);
     }
 
     private DialogListener dialogListener;
     private boolean[] selectedOutputs = new boolean[3];
+    private boolean hasPrevious;
 
     @Override
     public void onAttach(Activity activity) {
@@ -53,11 +55,11 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 })
                 .setNegativeButton(R.string.menu_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        getActivity().finish();
+                        dialogListener.onOuptutDialogCancelClick(OutputSelectionFragment.this);
                     }
                 });
 
-        boolean hasPrevious = getArguments().getBoolean(hasPreviousDialog);
+        hasPrevious = getArguments().getBoolean(hasPreviousDialog);
         if (hasPrevious) {
             builder.setNeutralButton(R.string.menu_previous, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -67,7 +69,9 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
         }
 
         Dialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
+        if (hasPrevious) {
+            dialog.setCanceledOnTouchOutside(false);
+        }
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
@@ -99,7 +103,11 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
     }
 
     public void onCancel(DialogInterface dialog) {
-        getActivity().finish();
+        if (hasPrevious) {
+            dialogListener.onOutputDialogPreviousClick(this);
+        } else {
+            dialogListener.onOuptutDialogCancelClick(this);
+        }
     }
 
     @Override

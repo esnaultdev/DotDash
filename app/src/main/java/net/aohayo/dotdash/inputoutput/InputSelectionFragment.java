@@ -16,6 +16,7 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
     public static final String hasNextDialog = "nextDialog";
 
     public interface DialogListener {
+        void onInputDialogCancelClick(DialogFragment dialog);
         void onInputDialogPositiveClick(DialogFragment dialog);
     }
 
@@ -43,12 +44,16 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
         builder.setView(inflater.inflate(R.layout.input_selection_dialog, null))
                 .setNegativeButton(R.string.menu_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        getActivity().finish();
+                        dialogListener.onInputDialogCancelClick(InputSelectionFragment.this);
                     }
                 });
 
         Dialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
+
+        boolean hasNext = getArguments().getBoolean(hasNextDialog);
+        if (hasNext) {
+            dialog.setCanceledOnTouchOutside(false);
+        }
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
@@ -63,6 +68,10 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
             }
         });
         return dialog;
+    }
+
+    public void onCancel(DialogInterface dialog) {
+        dialogListener.onInputDialogCancelClick(this);
     }
 
     @Override

@@ -38,6 +38,8 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        outputs = new ArrayList<>();
+
         showInputSelectionDialog(true);
 
         setUIListeners();
@@ -98,28 +100,33 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     }
 
     @Override
+    public void onInputDialogCancelClick(DialogFragment dialog) {
+        if (currentInput == MorseInput.NONE) {
+            finish();
+        }
+    }
+
+    @Override
     public void onInputDialogPositiveClick(DialogFragment dialog) {
         MorseInput selectedInput;
         selectedInput = ((InputSelectionFragment) dialog).getSelectedInput();
+
+        findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
+        findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
+        findViewById(R.id.morse_input_text_card).setVisibility(View.GONE);
+
         switch (selectedInput) {
             case FAB_BUTTON:
                 findViewById(R.id.morse_input_fab).setVisibility(View.VISIBLE);
-                findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
-                findViewById(R.id.morse_input_text_card).setVisibility(View.GONE);
                 break;
             case LARGE_BUTTON:
                 findViewById(R.id.morse_input_large_button).setVisibility(View.VISIBLE);
-                findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
-                findViewById(R.id.morse_input_text_card).setVisibility(View.GONE);
                 break;
             case TEXT:
                 findViewById(R.id.morse_input_text_card).setVisibility(View.VISIBLE);
-                findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
-                findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
                 textInput = new TextInput(this, this);
                 break;
             default:
-            case NONE:
                 break;
         }
         currentInput = selectedInput;
@@ -131,7 +138,12 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     @Override
     public void onOutputDialogPositiveClick(DialogFragment dialog) {
         selectedOutputs = ((OutputSelectionFragment) dialog).getSelectedOutputs();
-        outputs = new ArrayList<>();
+
+        for (int i = 0; i < outputs.size(); i++) {
+            outputs.get(i).finish();
+        }
+        outputs.clear();
+
         if (selectedOutputs[0]) {
             outputs.add(new AudioOutput());
         }
@@ -150,6 +162,13 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     @Override
     public void onOutputDialogPreviousClick(DialogFragment dialog) {
         showInputSelectionDialog(true);
+    }
+
+    @Override
+    public void onOuptutDialogCancelClick(DialogFragment dialog) {
+        if (outputs.size() == 0) {
+            finish();
+        }
     }
 
     @Override
