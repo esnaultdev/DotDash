@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/input"
+        android:icon="@mipmap/ic_arrow_downward_white_48dp"
+        android:title="@string/input"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/outputs"
+        android:icon="@mipmap/ic_arrow_upward_white_48dp"
+        android:title="@string/outputs"
+        app:showAsAction="ifRoom"/>
+</menu>

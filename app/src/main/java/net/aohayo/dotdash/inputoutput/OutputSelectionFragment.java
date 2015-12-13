@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import net.aohayo.dotdash.R;
 
 public class OutputSelectionFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+    public static final String hasPreviousDialog = "previousDialog";
 
     public interface DialogListener {
         void onOutputDialogPositiveClick(DialogFragment dialog);
@@ -50,16 +51,20 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                         dialogListener.onOutputDialogPositiveClick(OutputSelectionFragment.this);
                     }
                 })
-                .setNeutralButton(R.string.menu_previous, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialogListener.onOutputDialogPreviousClick(OutputSelectionFragment.this);
-                    }
-                })
                 .setNegativeButton(R.string.menu_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         getActivity().finish();
                     }
                 });
+
+        boolean hasPrevious = getArguments().getBoolean(hasPreviousDialog);
+        if (hasPrevious) {
+            builder.setNeutralButton(R.string.menu_previous, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialogListener.onOutputDialogPreviousClick(OutputSelectionFragment.this);
+                }
+            });
+        }
 
         Dialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
