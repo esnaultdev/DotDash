@@ -2,6 +2,8 @@ package net.aohayo.dotdash.inputoutput;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
 
 import net.aohayo.dotdash.morse.MorseCodec;
 import net.aohayo.dotdash.morse.MorseElement;
@@ -19,6 +21,8 @@ public class TextInput {
         void onOutputStop();
     }
 
+    private static final String ELEMENTS_STATE = "elementsState";
+
     private InputListener listener;
     private MorseCodec morseCodec;
     private Queue<String> texts;
@@ -28,10 +32,30 @@ public class TextInput {
     private int unitDuration = 80; // in milliseconds
 
     public TextInput(Context context, InputListener listener) {
+        this(context, listener, null);
+    }
+
+    public TextInput(Context context, InputListener listener, Bundle savedInstanceState) {
         this.listener = listener;
         morseCodec = new MorseCodec(context, R.xml.morse_code_itu);
         texts = new LinkedList<>();
         elements = new LinkedList<>();
+
+        if (savedInstanceState != null) {
+            LinkedList<MorseElement> savedElements;
+            savedElements = (LinkedList<MorseElement>) savedInstanceState.getSerializable(ELEMENTS_STATE);
+            if (savedElements != null && savedElements.size() > 0) {
+                elements = savedElements;
+                sendTask = new SendTask();
+                sendTask.execute();
+            }
+        }
+    }
+
+    public Bundle getInstanceState() {
+        Bundle state = new Bundle();
+        state.putSerializable(ELEMENTS_STATE, (LinkedList<MorseElement>) elements);
+        return state;
     }
 
     public void sendText(String text) {
@@ -132,7 +156,7 @@ public class TextInput {
                     try {
                         Thread.sleep(RETRY_DURATION);
                     } catch (InterruptedException e) {
-
+                        Log.d("SendTask", "task interrupted while paused");
                     }
                 }
 
@@ -157,7 +181,9 @@ public class TextInput {
 
         public void resume() {
             paused = false;
-            backgroundThread.interrupt();
+            if (backgroundThread != null) {
+                backgroundThread.interrupt();
+            }
         }
     }
 }

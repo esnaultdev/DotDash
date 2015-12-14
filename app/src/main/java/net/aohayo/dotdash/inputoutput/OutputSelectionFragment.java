@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import net.aohayo.dotdash.R;
 
 public class OutputSelectionFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
-    public static final String hasPreviousDialog = "previousDialog";
+    private static final String HAS_PREVIOUS_DIALOG = "previousDialog";
 
     public interface DialogListener {
         void onOutputDialogPositiveClick(DialogFragment dialog);
@@ -27,6 +27,17 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
     private DialogListener dialogListener;
     private boolean[] selectedOutputs = new boolean[3];
     private boolean hasPrevious;
+
+
+    static OutputSelectionFragment newInstance(boolean hasPrevious) {
+        OutputSelectionFragment output = new OutputSelectionFragment();
+
+        Bundle args = new Bundle();
+        args.putBoolean(HAS_PREVIOUS_DIALOG, hasPrevious);
+        output.setArguments(args);
+
+        return output;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -59,7 +70,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                     }
                 });
 
-        hasPrevious = getArguments().getBoolean(hasPreviousDialog);
+        hasPrevious = getArguments().getBoolean(HAS_PREVIOUS_DIALOG);
         if (hasPrevious) {
             builder.setNeutralButton(R.string.menu_previous, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -132,8 +143,8 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
         AlertDialog dialog = (AlertDialog) getDialog();
         Button selectButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
         boolean enabled = false;
-        for (int i = 0; i < selectedOutputs.length; i++) {
-            if (selectedOutputs[i]) {
+        for (boolean selectedOutput : selectedOutputs) {
+            if (selectedOutput) {
                 enabled = true;
                 break;
             }

@@ -23,11 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener, InputSelectionFragment.DialogListener, TextInput.InputListener {
-    static final String STATE_OUTPUTS = "outputs";
-    static final String STATE_INPUT = "input";
+    private static final String STATE_OUTPUTS = "outputs";
+    private static final String STATE_INPUT = "input";
+    private static final String STATE_TEXT_INPUT = "textInput";
 
     private List<MorseOutput> outputs;
-    private MorseInput currentInput = MorseInput.NONE;
+    private MorseInput selectedInput = MorseInput.NONE;
     boolean[] selectedOutputs;
     private TextInput textInput;
 
@@ -39,8 +40,39 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         setSupportActionBar(toolbar);
 
         outputs = new ArrayList<>();
+        selectedOutputs = new boolean[nbAvailableOutputs()];
 
-        showInputSelectionDialog(true);
+        if (savedInstanceState != null) {
+            MorseInput savedInput = (MorseInput) savedInstanceState.getSerializable(STATE_INPUT);
+            if (savedInput != null) {
+                selectedInput = savedInput;
+            }
+            boolean[] savedOutputs = savedInstanceState.getBooleanArray(STATE_OUTPUTS);
+            if (savedOutputs != null) {
+                selectedOutputs = savedOutputs;
+            }
+            Bundle textInputState = savedInstanceState.getBundle(STATE_TEXT_INPUT);
+            textInput = new TextInput(this, this, textInputState);
+        } else {
+            textInput = new TextInput(this, this);
+        }
+
+        boolean hasOutput = false;
+        for (boolean selectedOutput : selectedOutputs) {
+            if (selectedOutput) {
+                hasOutput = true;
+                break;
+            }
+        }
+
+        if (selectedInput == MorseInput.NONE) {
+            showInputSelectionDialog(!hasOutput);
+        } else {
+            initInput();
+        }
+        if (hasOutput) {
+            initOutputs();
+        }
 
         setUIListeners();
     }
@@ -69,68 +101,52 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     @Override
     protected void onPause() {
         super.onPause();
-        if (textInput != null) {
-            textInput.pause();
-        }
+
+        textInput.pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (textInput != null) {
-            textInput.resume();
-        }
+
+        textInput.resume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        if (textInput != null) {
-            textInput.cancel();
-        }
+        textInput.cancel();
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putSerializable(STATE_INPUT, currentInput);
+        savedInstanceState.putSerializable(STATE_INPUT, selectedInput);
         savedInstanceState.putBooleanArray(STATE_OUTPUTS, selectedOutputs);
+        Bundle textInputState = textInput.getInstanceState();
+        savedInstanceState.putBundle(STATE_TEXT_INPUT, textInputState);
 
         super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     public void onInputDialogCancelClick(DialogFragment dialog) {
-        if (currentInput == MorseInput.NONE) {
+        if (selectedInput == MorseInput.NONE) {
             finish();
         }
     }
 
     @Override
     public void onInputDialogPositiveClick(DialogFragment dialog) {
-        MorseInput selectedInput;
         selectedInput = ((InputSelectionFragment) dialog).getSelectedInput();
 
         findViewById(R.id.morse_input_fab).setVisibility(View.GONE);
         findViewById(R.id.morse_input_large_button).setVisibility(View.GONE);
         findViewById(R.id.morse_input_text_card).setVisibility(View.GONE);
 
-        switch (selectedInput) {
-            case FAB_BUTTON:
-                findViewById(R.id.morse_input_fab).setVisibility(View.VISIBLE);
-                break;
-            case LARGE_BUTTON:
-                findViewById(R.id.morse_input_large_button).setVisibility(View.VISIBLE);
-                break;
-            case TEXT:
-                findViewById(R.id.morse_input_text_card).setVisibility(View.VISIBLE);
-                textInput = new TextInput(this, this);
-                break;
-            default:
-                break;
-        }
-        currentInput = selectedInput;
-        if (dialog.getArguments().getBoolean(InputSelectionFragment.hasNextDialog)) {
+        initInput();
+
+        if (((InputSelectionFragment) dialog).hasNextDialog()) {
             showOutputSelectionDialog(true);
         }
     }
@@ -144,19 +160,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         }
         outputs.clear();
 
-        if (selectedOutputs[0]) {
-            outputs.add(new AudioOutput());
-        }
-        if (selectedOutputs[1]) {
-            outputs.add(new ScreenOutput(this, findViewById(R.id.content_layout)));
-        }
-        if (selectedOutputs[2]) {
-            outputs.add(new VibratorOutput(this));
-        }
-
-        for (int i = 0; i < outputs.size(); i++) {
-            outputs.get(i).init();
-        }
+        initOutputs();
     }
 
     @Override
@@ -196,18 +200,12 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     }
 
     private void showInputSelectionDialog(boolean hasNextDialog) {
-        InputSelectionFragment inputSelection = new InputSelectionFragment();
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(InputSelectionFragment.hasNextDialog, hasNextDialog);
-        inputSelection.setArguments(bundle);
+        InputSelectionFragment inputSelection = InputSelectionFragment.newInstance(hasNextDialog);
         inputSelection.show(getFragmentManager(), "inputSelection");
     }
 
     private void showOutputSelectionDialog(boolean hasPreviousDialog) {
-        OutputSelectionFragment outputSelection = new OutputSelectionFragment();
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(OutputSelectionFragment.hasPreviousDialog, hasPreviousDialog);
-        outputSelection.setArguments(bundle);
+        OutputSelectionFragment outputSelection = OutputSelectionFragment.newInstance(hasPreviousDialog);
         outputSelection.show(getFragmentManager(), "outputSelection");
     }
 
@@ -275,5 +273,41 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 return handled;
             }
         });
+    }
+
+    private int nbAvailableOutputs() {
+        return VibratorOutput.isAvailable(this) ? 3 : 2;
+    }
+
+    private void initOutputs() {
+        if (selectedOutputs[0]) {
+            outputs.add(new AudioOutput());
+        }
+        if (selectedOutputs[1]) {
+            outputs.add(new ScreenOutput(this, findViewById(R.id.content_layout)));
+        }
+        if (selectedOutputs[2]) {
+            outputs.add(new VibratorOutput(this));
+        }
+
+        for (int i = 0; i < outputs.size(); i++) {
+            outputs.get(i).init();
+        }
+    }
+
+    private void initInput() {
+        switch (selectedInput) {
+            case FAB_BUTTON:
+                findViewById(R.id.morse_input_fab).setVisibility(View.VISIBLE);
+                break;
+            case LARGE_BUTTON:
+                findViewById(R.id.morse_input_large_button).setVisibility(View.VISIBLE);
+                break;
+            case TEXT:
+                findViewById(R.id.morse_input_text_card).setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 }

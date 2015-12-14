@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import net.aohayo.dotdash.R;
 
 public class InputSelectionFragment extends DialogFragment implements View.OnClickListener {
-    public static final String hasNextDialog = "nextDialog";
+    private static final String HAS_NEXT_DIALOG = "nextDialog";
 
     public interface DialogListener {
         void onInputDialogCancelClick(DialogFragment dialog);
@@ -23,6 +23,17 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
     private DialogListener dialogListener;
     private MorseInput selectedInput;
 
+    private boolean hasNextDialog;
+
+    static InputSelectionFragment newInstance(boolean hasNext) {
+        InputSelectionFragment input = new InputSelectionFragment();
+
+        Bundle args = new Bundle();
+        args.putBoolean(HAS_NEXT_DIALOG, hasNext);
+        input.setArguments(args);
+
+        return input;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -50,8 +61,8 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
 
         Dialog dialog = builder.create();
 
-        boolean hasNext = getArguments().getBoolean(hasNextDialog);
-        if (hasNext) {
+        hasNextDialog = getArguments().getBoolean(HAS_NEXT_DIALOG);
+        if (hasNextDialog) {
             dialog.setCanceledOnTouchOutside(false);
         }
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -97,5 +108,9 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
 
     public MorseInput getSelectedInput() {
         return selectedInput;
+    }
+
+    public boolean hasNextDialog() {
+        return hasNextDialog;
     }
 }
