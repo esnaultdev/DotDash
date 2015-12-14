@@ -1,6 +1,7 @@
 package net.aohayo.dotdash.inputoutput;
 
 public abstract class MorseOutput {
+
     public void init() {
 
     }

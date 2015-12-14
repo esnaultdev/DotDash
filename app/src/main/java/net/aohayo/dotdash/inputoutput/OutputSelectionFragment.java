@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,19 +16,22 @@ import android.widget.RelativeLayout;
 
 import net.aohayo.dotdash.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OutputSelectionFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     private static final String HAS_PREVIOUS_DIALOG = "previousDialog";
 
     public interface DialogListener {
         void onOutputDialogPositiveClick(DialogFragment dialog);
         void onOutputDialogPreviousClick(DialogFragment dialog);
-        void onOuptutDialogCancelClick(DialogFragment dialog);
+        void onOutputDialogCancelClick(DialogFragment dialog);
     }
 
     private DialogListener dialogListener;
-    private boolean[] selectedOutputs = new boolean[3];
+    private boolean[] selectedOutputs; //TODO : better management of outputs
     private boolean hasPrevious;
-
+    private boolean vibratorAvailable;
 
     static OutputSelectionFragment newInstance(boolean hasPrevious) {
         OutputSelectionFragment output = new OutputSelectionFragment();
@@ -48,10 +52,13 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
             throw new ClassCastException(activity.toString()
                     + " must implement DialogListener");
         }
+        vibratorAvailable = VibratorOutput.isAvailable(activity);
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        int nbOutputs = vibratorAvailable ? 3 : 2;
+        selectedOutputs = new boolean[nbOutputs];
         for (int i = 0; i < selectedOutputs.length; i++) {
             selectedOutputs[i] = false;
         }
@@ -66,7 +73,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 })
                 .setNegativeButton(R.string.menu_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialogListener.onOuptutDialogCancelClick(OutputSelectionFragment.this);
+                        dialogListener.onOutputDialogCancelClick(OutputSelectionFragment.this);
                     }
                 });
 
@@ -90,7 +97,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
 
                 updateSelectButton();
 
-                if (!VibratorOutput.isAvailable(getActivity())) {
+                if (!vibratorAvailable) {
                     alertDialog.findViewById(R.id.vibrator_output_layout).setVisibility(View.GONE);
                     alertDialog.findViewById(R.id.vibrator_output_separator).setVisibility(View.GONE);
                 }
@@ -117,7 +124,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
         if (hasPrevious) {
             dialogListener.onOutputDialogPreviousClick(this);
         } else {
-            dialogListener.onOuptutDialogCancelClick(this);
+            dialogListener.onOutputDialogCancelClick(this);
         }
     }
 
@@ -173,7 +180,35 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
         }
     }
 
-    public boolean[] getSelectedOutputs() {
-        return selectedOutputs;
+    public List<MorseOutputs> getSelectedOutputs() {
+        ArrayList<MorseOutputs> outputs = new ArrayList<>();
+        for (int i = 0; i < selectedOutputs.length; i++) {
+            if (selectedOutputs[i]) {
+                if (i == 0) {
+                    outputs.add(MorseOutputs.AUDIO);
+                } else if (i == 1) {
+                    outputs.add(MorseOutputs.SCREEN);
+                } else if (i == 2) {
+                    outputs.add(MorseOutputs.VIBRATOR);
+                }
+            }
+        }
+        return outputs;
+    }
+
+    public List<MorseOutputs> getNotSelectedOutputs() {
+        ArrayList<MorseOutputs> outputs = new ArrayList<>();
+        for (int i = 0; i < selectedOutputs.length; i++) {
+            if (!selectedOutputs[i]) {
+                if (i == 0) {
+                    outputs.add(MorseOutputs.AUDIO);
+                } else if (i == 1) {
+                    outputs.add(MorseOutputs.SCREEN);
+                } else if (i == 2) {
+                    outputs.add(MorseOutputs.VIBRATOR);
+                }
+            }
+        }
+        return outputs;
     }
 }
