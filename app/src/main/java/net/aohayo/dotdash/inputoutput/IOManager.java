@@ -2,7 +2,6 @@ package net.aohayo.dotdash.inputoutput;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -129,6 +128,10 @@ public class IOManager implements TextInput.InputListener {
         }
         if (newInputView != null) {
             newInputView.setVisibility(View.VISIBLE);
+        }
+        if (this.input == MorseInput.TEXT) {
+            textInput.cancel();
+            textInput.clear();
         }
 
         this.input = input;

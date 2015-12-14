@@ -79,6 +79,11 @@ public class TextInput {
         }
     }
 
+    public void clear() {
+        texts.clear();
+        elements.clear();
+    }
+
     public void pause() {
         if (sendTask != null) {
             sendTask.pause();
