@@ -107,25 +107,27 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
 
                 updateSelectButton();
 
-                if (!vibratorAvailable) {
-                    alertDialog.findViewById(R.id.vibrator_output_layout).setVisibility(View.GONE);
-                    alertDialog.findViewById(R.id.vibrator_output_separator).setVisibility(View.GONE);
-                }
-
                 CheckBox soundCB = (CheckBox) alertDialog.findViewById(R.id.sound_output_checkbox);
                 CheckBox screenCB = (CheckBox) alertDialog.findViewById(R.id.screen_output_checkbox);
-                CheckBox vibratorCB = (CheckBox) alertDialog.findViewById(R.id.vibrator_output_checkbox);
                 soundCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
                 screenCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
-                vibratorCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
+
                 if (selectedOutputs[0]) {
                     soundCB.setChecked(true);
                 }
                 if (selectedOutputs[1]) {
                     screenCB.setChecked(true);
                 }
-                if (selectedOutputs[2]) {
-                    vibratorCB.setChecked(true);
+
+                if (!vibratorAvailable) {
+                    alertDialog.findViewById(R.id.vibrator_output_layout).setVisibility(View.GONE);
+                    alertDialog.findViewById(R.id.vibrator_output_separator).setVisibility(View.GONE);
+                } else {
+                    CheckBox vibratorCB = (CheckBox) alertDialog.findViewById(R.id.vibrator_output_checkbox);
+                    vibratorCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
+                    if (selectedOutputs[2]) {
+                        vibratorCB.setChecked(true);
+                    }
                 }
 
                 RelativeLayout soundOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.sound_output_layout);

@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:textSize="24sp"
         android:textColor="@color/colorPrimary"
-        android:layout_margin="15dp" />
+        android:layout_margin="15dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
@@ -20,7 +20,7 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView2" >
+        android:id="@+id/scrollView2">
 
         <LinearLayout
             android:orientation="vertical"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/fab_input_layout"
                 android:clickable="true"
-                android:longClickable="true">
+                android:background="?android:attr/selectableItemBackground">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/imageView"
-                        android:src="@mipmap/ic_smartphone_fab_white_48dp" />
+                        android:src="@mipmap/ic_smartphone_fab_white_48dp"/>
                 </FrameLayout>
 
                 <TextView
@@ -57,7 +57,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/frameLayout"
                     android:layout_toEndOf="@+id/frameLayout"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="15dp"/>
 
             </RelativeLayout>
 
@@ -65,20 +65,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/itemSeparator"
-                android:id="@+id/screen_output_separator" />
+                android:id="@+id/screen_output_separator"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/large_button_input_layout"
-                android:clickable="true">
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"
                     android:padding="10dp"
-                    android:id="@+id/frameLayout2" >
+                    android:id="@+id/frameLayout2">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -96,7 +97,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/frameLayout2"
                     android:layout_toEndOf="@+id/frameLayout2"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="15dp"/>
 
             </RelativeLayout>
 
@@ -104,13 +105,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/itemSeparator"
-                android:id="@+id/vibrator_output_separator" />
+                android:id="@+id/vibrator_output_separator"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_input_layout"
-                android:clickable="true">
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -124,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/imageView3"
                         android:src="@mipmap/ic_alphabetical_white_48dp"
-                        android:background="@color/colorAccent" />
+                        android:background="@color/colorAccent"/>
 
                 </FrameLayout>
 
@@ -137,7 +139,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/frameLayout3"
                     android:layout_toEndOf="@+id/frameLayout3"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="15dp"/>
 
             </RelativeLayout>
 
