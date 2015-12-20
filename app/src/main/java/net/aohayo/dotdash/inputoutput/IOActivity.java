@@ -154,7 +154,8 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     }
 
     private void showOutputSelectionDialog(boolean hasPreviousDialog) {
-        OutputSelectionFragment outputSelection = OutputSelectionFragment.newInstance(hasPreviousDialog);
+        OutputSelectionFragment outputSelection;
+        outputSelection = OutputSelectionFragment.newInstance(hasPreviousDialog, ioManager.getOutputs());
         outputSelection.show(getFragmentManager(), "outputSelection");
     }
 }

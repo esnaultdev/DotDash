@@ -10,7 +10,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class IOManager implements TextInput.InputListener {
@@ -175,6 +177,16 @@ public class IOManager implements TextInput.InputListener {
             }
         }
         return result;
+    }
+
+    public List<MorseOutputs> getOutputs() {
+        ArrayList<MorseOutputs> selectedOutputs = new ArrayList<>();
+        for (Map.Entry<MorseOutputs, Boolean> entry : enabledOutputs.entrySet()) {
+            if (entry.getValue()) {
+                selectedOutputs.add(entry.getKey());
+            }
+        }
+        return selectedOutputs;
     }
 
     @Override

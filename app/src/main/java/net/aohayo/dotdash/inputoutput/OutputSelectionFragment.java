@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +20,7 @@ import java.util.List;
 
 public class OutputSelectionFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     private static final String HAS_PREVIOUS_DIALOG = "previousDialog";
+    private static final String SELECTED_OUTPUTS = "selectedOutputs";
 
     public interface DialogListener {
         void onOutputDialogPositiveClick(DialogFragment dialog);
@@ -34,10 +34,15 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
     private boolean vibratorAvailable;
 
     static OutputSelectionFragment newInstance(boolean hasPrevious) {
+        return newInstance(hasPrevious, null);
+    }
+
+    static OutputSelectionFragment newInstance(boolean hasPrevious, List<MorseOutputs> selectedOutputs) {
         OutputSelectionFragment output = new OutputSelectionFragment();
 
         Bundle args = new Bundle();
         args.putBoolean(HAS_PREVIOUS_DIALOG, hasPrevious);
+        args.putSerializable(SELECTED_OUTPUTS, new ArrayList<>(selectedOutputs));
         output.setArguments(args);
 
         return output;
@@ -57,10 +62,15 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        List<MorseOutputs> selectedOutputsArgs = (List<MorseOutputs>) getArguments().getSerializable(SELECTED_OUTPUTS);
         int nbOutputs = vibratorAvailable ? 3 : 2;
         selectedOutputs = new boolean[nbOutputs];
-        for (int i = 0; i < selectedOutputs.length; i++) {
-            selectedOutputs[i] = false;
+        if (selectedOutputsArgs != null) {
+            selectedOutputs[0] = selectedOutputsArgs.contains(MorseOutputs.AUDIO);
+            selectedOutputs[1] = selectedOutputsArgs.contains(MorseOutputs.SCREEN);
+            if (vibratorAvailable) {
+                selectedOutputs[2] = selectedOutputsArgs.contains(MorseOutputs.VIBRATOR);
+            }
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -108,6 +118,15 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 soundCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
                 screenCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
                 vibratorCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
+                if (selectedOutputs[0]) {
+                    soundCB.setChecked(true);
+                }
+                if (selectedOutputs[1]) {
+                    screenCB.setChecked(true);
+                }
+                if (selectedOutputs[2]) {
+                    vibratorCB.setChecked(true);
+                }
 
                 RelativeLayout soundOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.sound_output_layout);
                 RelativeLayout screenOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.screen_output_layout);
