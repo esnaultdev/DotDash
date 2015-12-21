@@ -192,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/imageView5"
-                        android:src="@mipmap/ic_vibration_white_48dp"
+                        android:src="@mipmap/ic_morse_white_48dp"
                         android:background="@color/colorAccent" />
 
                 </FrameLayout>
