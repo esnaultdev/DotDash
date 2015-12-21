@@ -31,20 +31,17 @@ public class TimingDiagramView extends SurfaceView implements SurfaceHolder.Call
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.d("TDV", "Surface created");
         thread.setRunning(true);
         thread.start();
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.d("TDV", "Surface changed");
         thread.setDimensions(width, height);
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        Log.d("TDV", "Surface destroyed");
         boolean retry = true;
         thread.setRunning(false);
         while (retry) {
@@ -80,7 +77,7 @@ public class TimingDiagramView extends SurfaceView implements SurfaceHolder.Call
         private Paint paint;
         private Path path;
 
-        private float speed = 50;
+        private float speed = 100;
         private long time;
         private boolean activated = false;
 
@@ -92,7 +89,8 @@ public class TimingDiagramView extends SurfaceView implements SurfaceHolder.Call
 
             paint = new Paint();
             paint.setColor(context.getResources().getColor(R.color.colorPrimaryDark));
-            paint.setStrokeWidth(4.0f);
+            paint.setStrokeWidth(6.0f);
+            paint.setStrokeCap(Paint.Cap.BUTT);
             paint.setStyle(Paint.Style.STROKE);
 
             path = new Path();
@@ -168,9 +166,9 @@ public class TimingDiagramView extends SurfaceView implements SurfaceHolder.Call
             float timeDiff = (currentTime - time) / 1000.0f;
             path.offset(-timeDiff*speed, 0);
             if (activated) {
-                path.rMoveTo(timeDiff*speed, 0);
-            } else {
                 path.rLineTo(timeDiff * speed, 0);
+            } else {
+                path.rMoveTo(timeDiff*speed, 0);
             }
             time = currentTime;
         }

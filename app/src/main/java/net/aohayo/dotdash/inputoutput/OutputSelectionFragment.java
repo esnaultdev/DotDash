@@ -29,15 +29,11 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
     }
 
     private DialogListener dialogListener;
-    private boolean[] selectedOutputs; //TODO : better management of outputs
+    private List<MorseOutputs> selectedOutputs;
     private boolean hasPrevious;
     private boolean vibratorAvailable;
 
-    static OutputSelectionFragment newInstance(boolean hasPrevious) {
-        return newInstance(hasPrevious, null);
-    }
-
-    static OutputSelectionFragment newInstance(boolean hasPrevious, List<MorseOutputs> selectedOutputs) {
+    public static OutputSelectionFragment newInstance(boolean hasPrevious, List<MorseOutputs> selectedOutputs) {
         OutputSelectionFragment output = new OutputSelectionFragment();
 
         Bundle args = new Bundle();
@@ -63,14 +59,13 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         List<MorseOutputs> selectedOutputsArgs = (List<MorseOutputs>) getArguments().getSerializable(SELECTED_OUTPUTS);
-        int nbOutputs = vibratorAvailable ? 3 : 2;
-        selectedOutputs = new boolean[nbOutputs];
         if (selectedOutputsArgs != null) {
-            selectedOutputs[0] = selectedOutputsArgs.contains(MorseOutputs.AUDIO);
-            selectedOutputs[1] = selectedOutputsArgs.contains(MorseOutputs.SCREEN);
-            if (vibratorAvailable) {
-                selectedOutputs[2] = selectedOutputsArgs.contains(MorseOutputs.VIBRATOR);
-            }
+            selectedOutputs = selectedOutputsArgs;
+        } else {
+            selectedOutputs = new ArrayList<>();
+        }
+        if (!vibratorAvailable) {
+            selectedOutputs.remove(MorseOutputs.VIBRATOR);
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -109,14 +104,19 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
 
                 CheckBox soundCB = (CheckBox) alertDialog.findViewById(R.id.sound_output_checkbox);
                 CheckBox screenCB = (CheckBox) alertDialog.findViewById(R.id.screen_output_checkbox);
+                CheckBox diagramCB = (CheckBox) alertDialog.findViewById(R.id.diagram_output_checkbox);
                 soundCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
                 screenCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
+                diagramCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
 
-                if (selectedOutputs[0]) {
+                if (selectedOutputs.contains(MorseOutputs.AUDIO)) {
                     soundCB.setChecked(true);
                 }
-                if (selectedOutputs[1]) {
+                if (selectedOutputs.contains(MorseOutputs.SCREEN)) {
                     screenCB.setChecked(true);
+                }
+                if (selectedOutputs.contains(MorseOutputs.DIAGRAM)) {
+                    diagramCB.setChecked(true);
                 }
 
                 if (!vibratorAvailable) {
@@ -125,7 +125,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 } else {
                     CheckBox vibratorCB = (CheckBox) alertDialog.findViewById(R.id.vibrator_output_checkbox);
                     vibratorCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
-                    if (selectedOutputs[2]) {
+                    if (selectedOutputs.contains(MorseOutputs.VIBRATOR)) {
                         vibratorCB.setChecked(true);
                     }
                 }
@@ -133,9 +133,11 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 RelativeLayout soundOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.sound_output_layout);
                 RelativeLayout screenOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.screen_output_layout);
                 RelativeLayout vibratorOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.vibrator_output_layout);
+                RelativeLayout diagramOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.diagram_output_layout);
                 soundOutputLayout.setOnClickListener(OutputSelectionFragment.this);
                 screenOutputLayout.setOnClickListener(OutputSelectionFragment.this);
                 vibratorOutputLayout.setOnClickListener(OutputSelectionFragment.this);
+                diagramOutputLayout.setOnClickListener(OutputSelectionFragment.this);
             }
         });
         return dialog;
@@ -151,84 +153,77 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        MorseOutputs output = null;
         switch (buttonView.getId()) {
             case R.id.sound_output_checkbox:
-                selectedOutputs[0] = isChecked;
+                output = MorseOutputs.AUDIO;
                 break;
             case R.id.screen_output_checkbox:
-                selectedOutputs[1] = isChecked;
+                output = MorseOutputs.SCREEN;
                 break;
             case R.id.vibrator_output_checkbox:
-                selectedOutputs[2] = isChecked;
+                output = MorseOutputs.VIBRATOR;
+                break;
+            case R.id.diagram_output_checkbox:
+                output = MorseOutputs.DIAGRAM;
                 break;
             default:
                 break;
         }
-        updateSelectButton();
+        if (output != null) {
+            boolean selected = selectedOutputs.contains(output);
+            if (selected && !isChecked) {
+                selectedOutputs.remove(output);
+            } else if (!selected && isChecked) {
+                selectedOutputs.add(output);
+            }
+            updateSelectButton();
+        }
     }
 
     private void updateSelectButton() {
         AlertDialog dialog = (AlertDialog) getDialog();
         Button selectButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        boolean enabled = false;
-        for (boolean selectedOutput : selectedOutputs) {
-            if (selectedOutput) {
-                enabled = true;
-                break;
-            }
-        }
-        selectButton.setEnabled(enabled);
+        selectButton.setEnabled(!selectedOutputs.isEmpty());
     }
 
     @Override
     public void onClick(View v) {
-        CheckBox checkBox;
+        CheckBox checkBox = null;
         switch (v.getId()) {
             case R.id.sound_output_layout:
                 checkBox = (CheckBox) v.findViewById(R.id.sound_output_checkbox);
-                checkBox.toggle();
                 break;
             case R.id.screen_output_layout:
                 checkBox = (CheckBox) v.findViewById(R.id.screen_output_checkbox);
-                checkBox.toggle();
                 break;
             case R.id.vibrator_output_layout:
                 checkBox = (CheckBox) v.findViewById(R.id.vibrator_output_checkbox);
-                checkBox.toggle();
+                break;
+            case R.id.diagram_output_layout:
+                checkBox = (CheckBox) v.findViewById(R.id.diagram_output_checkbox);
                 break;
             default:
                 break;
         }
+        if (checkBox != null) {
+            checkBox.toggle();
+        }
     }
 
     public List<MorseOutputs> getSelectedOutputs() {
-        ArrayList<MorseOutputs> outputs = new ArrayList<>();
-        for (int i = 0; i < selectedOutputs.length; i++) {
-            if (selectedOutputs[i]) {
-                if (i == 0) {
-                    outputs.add(MorseOutputs.AUDIO);
-                } else if (i == 1) {
-                    outputs.add(MorseOutputs.SCREEN);
-                } else if (i == 2) {
-                    outputs.add(MorseOutputs.VIBRATOR);
-                }
-            }
-        }
-        return outputs;
+        return selectedOutputs;
     }
 
     public List<MorseOutputs> getNotSelectedOutputs() {
         ArrayList<MorseOutputs> outputs = new ArrayList<>();
-        for (int i = 0; i < selectedOutputs.length; i++) {
-            if (!selectedOutputs[i]) {
-                if (i == 0) {
-                    outputs.add(MorseOutputs.AUDIO);
-                } else if (i == 1) {
-                    outputs.add(MorseOutputs.SCREEN);
-                } else if (i == 2) {
-                    outputs.add(MorseOutputs.VIBRATOR);
-                }
+        for (MorseOutputs output : MorseOutputs.values()) {
+            if (!selectedOutputs.contains(output)) {
+                outputs.add(output);
             }
+        }
+        if (!vibratorAvailable) {
+            outputs.remove(MorseOutputs.VIBRATOR);
         }
         return outputs;
     }

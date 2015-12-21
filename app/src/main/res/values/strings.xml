@@ -6,6 +6,7 @@
     <string name="output_selection_sound">Sound</string>
     <string name="output_selection_screen">Screen</string>
     <string name="output_selection_vibrator">Vibrator</string>
+    <string name="output_selection_diagram">Timing diagram</string>
     <string name="input">Input</string>
     <string name="input_selection_dialog_title">Select your input</string>
     <string name="input_selection_fab">Small button</string>
