@@ -17,6 +17,22 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:id="@+id/morse_input_timing_diagram_card"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        card_view:cardElevation="6dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardUseCompatPadding="true"
+        android:visibility="gone">
+        <net.aohayo.dotdash.inputoutput.TimingDiagramView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/morse_output_timing_diagram"/>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:id="@+id/morse_input_large_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
