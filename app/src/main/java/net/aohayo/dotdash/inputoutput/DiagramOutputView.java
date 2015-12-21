@@ -13,13 +13,13 @@ import android.view.SurfaceView;
 
 import net.aohayo.dotdash.R;
 
-public class TimingDiagramView extends SurfaceView implements SurfaceHolder.Callback {
+public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Callback {
 
     private final SurfaceHolder holder;
     private TimingDiagramThread thread;
     private Context context;
 
-    public TimingDiagramView(Context context, AttributeSet attrs) {
+    public DiagramOutputView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         this.context = context;
@@ -68,10 +68,10 @@ public class TimingDiagramView extends SurfaceView implements SurfaceHolder.Call
     }
 
     private class TimingDiagramThread extends Thread {
-        private static final long UPDATE_PERIOD = 20;
+        private static final long UPDATE_PERIOD = 10;
         private boolean running;
 
-        private TimingDiagramView view;
+        private DiagramOutputView view;
         private int width = 1;
         private int height = 1;
         private Paint paint;
@@ -83,7 +83,7 @@ public class TimingDiagramView extends SurfaceView implements SurfaceHolder.Call
 
         private final Object runLock = new Object();
 
-        public TimingDiagramThread(TimingDiagramView view) {
+        public TimingDiagramThread(DiagramOutputView view) {
             super();
             this.view = view;
 

@@ -2,12 +2,12 @@ package net.aohayo.dotdash.inputoutput;
 
 import android.view.View;
 
-public class TimingDiagramOutput extends MorseOutput {
+public class DiagramOutput extends MorseOutput {
 
-    private TimingDiagramView diagramView;
+    private DiagramOutputView diagramView;
     private View container;
 
-    public TimingDiagramOutput(TimingDiagramView view, View container) {
+    public DiagramOutput(DiagramOutputView view, View container) {
         diagramView = view;
         this.container = container;
     }

@@ -2,24 +2,14 @@ package net.aohayo.dotdash.inputoutput;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import net.aohayo.dotdash.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener, InputSelectionFragment.DialogListener {
@@ -47,8 +37,8 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
 
         ioManager.addOutput(MorseOutputs.AUDIO, new AudioOutput());
         ioManager.addOutput(MorseOutputs.SCREEN, new ScreenOutput(this, findViewById(R.id.content_layout)));
-        ioManager.addOutput(MorseOutputs.DIAGRAM, new TimingDiagramOutput(
-                (TimingDiagramView) findViewById(R.id.morse_output_timing_diagram),
+        ioManager.addOutput(MorseOutputs.DIAGRAM, new DiagramOutput(
+                (DiagramOutputView) findViewById(R.id.morse_output_timing_diagram),
                 findViewById(R.id.morse_output_timing_diagram_card)));
         if (VibratorOutput.isAvailable(this)) {
             ioManager.addOutput(MorseOutputs.VIBRATOR, new VibratorOutput(this));
