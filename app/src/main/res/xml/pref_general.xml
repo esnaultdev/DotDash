@@ -3,7 +3,7 @@
     <PreferenceCategory
         android:title="@string/pref_morse_title">
         <ListPreference
-            android:defaultValue="15"
+            android:defaultValue="@string/pref_wpm_default"
             android:entries="@array/pref_wpm_titles"
             android:entryValues="@array/pref_wpm_values"
             android:key="wpm"
@@ -12,7 +12,7 @@
             android:title="@string/pref_title_wpm" />
 
         <ListPreference
-            android:defaultValue="50"
+            android:defaultValue="@string/pref_wpm_ref_word_default"
             android:entries="@array/pref_wpm_ref_word_titles"
             android:entryValues="@array/pref_wpm_ref_word_values"
             android:key="wpm_ref_word"
@@ -27,7 +27,7 @@
             android:title="@string/pref_title_longer_gaps" />
 
         <ListPreference
-            android:defaultValue="10"
+            android:defaultValue="@string/pref_wpm_gaps_default"
             android:entries="@array/pref_wpm_gaps_titles_values"
             android:entryValues="@array/pref_wpm_gaps_titles_values"
             android:key="wpm_gaps"
@@ -42,7 +42,7 @@
         android:title="@string/pref_io_title">
 
         <ListPreference
-            android:defaultValue="100"
+            android:defaultValue="@string/pref_diagram_speed_default"
             android:entries="@array/pref_diagram_speed_titles"
             android:entryValues="@array/pref_diagram_speed_values"
             android:key="diagram_speed"

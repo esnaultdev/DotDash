@@ -37,6 +37,9 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+
+    public static final String KEY_PREF_DIAGRAM_SPEED = "diagram_speed";
+
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -100,7 +103,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         bindPreferenceSummaryToValue(findPreference("wpm"));
         bindPreferenceSummaryToValue(findPreference("wpm_ref_word"));
         bindPreferenceSummaryToValue(findPreference("wpm_gaps"));
-        bindPreferenceSummaryToValue(findPreference("diagram_speed"));
+        bindPreferenceSummaryToValue(findPreference(KEY_PREF_DIAGRAM_SPEED));
     }
 
     /**

@@ -1,17 +1,20 @@
 package net.aohayo.dotdash.inputoutput;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import net.aohayo.dotdash.R;
+import net.aohayo.dotdash.main.SettingsActivity;
 
 public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -80,7 +83,7 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
         private Paint paint;
         private Path path;
 
-        private float speed = 100;
+        private float speed;
         private long time;
         private boolean activated = false;
 
@@ -99,6 +102,12 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
             path = new Path();
             path.moveTo(width, height / 2.0f);
             time = SystemClock.elapsedRealtime();
+
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+            String prefSpeed = sharedPref.getString(
+                    SettingsActivity.KEY_PREF_DIAGRAM_SPEED,
+                    context.getResources().getString(R.string.pref_diagram_speed_default));
+            speed = Integer.parseInt(prefSpeed);
         }
 
         public void setRunning(boolean running) {

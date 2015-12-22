@@ -52,6 +52,7 @@
         <item>10</item>
         <item>5</item>
     </string-array>
+    <string name="pref_wpm_default">18</string>
 
     <string name="pref_title_wpm_reference_word">Speed reference word</string>
     <string-array name="pref_wpm_ref_word_titles">
@@ -62,6 +63,7 @@
         <item>50</item>
         <item>60</item>
     </string-array>
+    <string name="pref_wpm_ref_word_default">50</string>
 
     <string name="pref_title_longer_gaps">Longer gaps</string>
     <string name="pref_description_longer_gaps">Use a different speed for inter-words gaps</string>
@@ -72,7 +74,7 @@
         <item>10</item>
         <item>5</item>
     </string-array>
-
+    <string name="pref_wpm_gaps_default">10</string>
 
     <string name="pref_io_title">Input &amp; outputs</string>
 
@@ -91,5 +93,6 @@
         <item>80</item>
         <item>50</item>
     </string-array>
+    <string name="pref_diagram_speed_default">100</string>
 
 </resources>
