@@ -29,7 +29,6 @@ public class TextInput {
     private Queue<MorseElement> elements;
     private TranslationTask trTask;
     private SendTask sendTask;
-    private int unitDuration = 80; // in milliseconds
 
     public TextInput(Context context, InputListener listener) {
         this(context, listener, null);
@@ -94,6 +93,7 @@ public class TextInput {
         if (sendTask != null) {
             sendTask.resume();
         }
+        morseCodec.refreshDurations();
     }
 
     private class TranslationTask extends AsyncTask<Void, Void, Void> {
@@ -165,12 +165,11 @@ public class TextInput {
                     }
                 }
 
-                int duration = morseCodec.getDuration(currentElement) * unitDuration;
                 if (currentElement == MorseElement.DOT || currentElement == MorseElement.DASH) {
                     listener.onOutputStart();
                 }
                 try {
-                    Thread.sleep(duration);
+                    Thread.sleep(morseCodec.getDuration(currentElement));
                 } catch (Exception e) {
                     e.getLocalizedMessage();
                 }

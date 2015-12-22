@@ -1,36 +1,74 @@
 package net.aohayo.dotdash.morse;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
+import android.preference.PreferenceManager;
 import android.util.Log;
+
+import net.aohayo.dotdash.R;
+import net.aohayo.dotdash.main.SettingsActivity;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MorseCodec {
-    private int[] durations = new int[5];
+    private EnumMap<MorseElement, Integer> durations; // in milliseconds
+    private EnumMap<MorseElement, Integer> rDurations; // relative durations
     private HashMap<Character, MorseElement[]> codes;
+    private Context context;
 
     public MorseCodec(Context context, int codeId) {
         codes = new HashMap<>();
+        durations = new EnumMap<>(MorseElement.class);
+        rDurations = new EnumMap<>(MorseElement.class);
+        this.context = context;
+
         parseXML(context, codeId);
+        computeDurations(context);
+    }
+
+    public void refreshDurations() {
+        computeDurations(context);
     }
 
     public void parseXML(Context context, int codeId) {
         XmlResourceParser parser = context.getResources().getXml(codeId);
         boolean inDuration = false;
         boolean inCode = false;
-        int durationIndex = 0;
         Character character = '\0';
+        MorseElement element = MorseElement.DOT;
         try {
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     if (parser.getName().equals("duration")) {
                         inDuration = true;
+                        String elementName = parser.getAttributeValue(null, "element");
+                        switch (elementName) {
+                            case "dot":
+                                element = MorseElement.DOT;
+                                break;
+                            case "dash":
+                                element = MorseElement.DASH;
+                                break;
+                            case "tiny_gap":
+                                element = MorseElement.TINY_GAP;
+                                break;
+                            case "short_gap":
+                                element = MorseElement.SHORT_GAP;
+                                break;
+                            case "medium_gap":
+                                element = MorseElement.MEDIUM_GAP;
+                                break;
+                            default:
+                                throw new XmlPullParserException("Unknown element: " + elementName);
+                        }
                     } else if (parser.getName().equals("code")) {
                         inCode = true;
                         character = parser.getAttributeValue(null, "character").charAt(0);
@@ -38,7 +76,6 @@ public class MorseCodec {
                 } else if (eventType == XmlPullParser.END_TAG) {
                     if (parser.getName().equals("duration")) {
                         inDuration = false;
-                        durationIndex++;
                     } else if (parser.getName().equals("code")) {
                         inCode = false;
                     }
@@ -46,7 +83,7 @@ public class MorseCodec {
                     String text = parser.getText();
                     if (text != null) {
                         if (inDuration) {
-                            durations[durationIndex] = Integer.parseInt(text);
+                            rDurations.put(element, Integer.parseInt(text));
                         } else if (inCode) {
                             codes.put(character, getElements(text));
                         }
@@ -78,19 +115,10 @@ public class MorseCodec {
     }
 
     public int getDuration(MorseElement element) {
-        switch (element) {
-            case DOT:
-                return durations[0];
-            case DASH:
-                return durations[1];
-            case TINY_GAP:
-                return durations[2];
-            case SHORT_GAP:
-                return durations[3];
-            case MEDIUM_GAP:
-                return durations[4];
-            default:
-                return 0;
+        if (durations.containsKey(element)) {
+            return durations.get(element);
+        } else {
+            return 0;
         }
     }
 
@@ -102,4 +130,46 @@ public class MorseCodec {
         }
     }
 
+    private void computeDurations(Context context) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String prefWpm = sharedPref.getString(
+                SettingsActivity.KEY_PREF_WPM,
+                context.getResources().getString(R.string.pref_wpm_default));
+        int wpm = Integer.parseInt(prefWpm);
+
+        String prefRefWord = sharedPref.getString(
+                SettingsActivity.KEY_PREF_WPM_REF_WORD,
+                context.getResources().getString(R.string.pref_wpm_ref_word_default));
+        int wpmRefWordElements = Integer.parseInt(prefRefWord);
+
+        int elementDuration = (int) (60.0f/wpmRefWordElements*1000)/wpm;
+        int gapElementDuration = elementDuration;
+
+        boolean prefUseLargerGaps = sharedPref.getBoolean(SettingsActivity.KEY_PREF_LONGER_GAPS, false);
+
+        if (prefUseLargerGaps) {
+            String prefWpmGaps = sharedPref.getString(
+                    SettingsActivity.KEY_PREF_WPM_GAPS,
+                    context.getResources().getString(R.string.pref_wpm_gaps_default));
+            int wpmGaps = Integer.parseInt(prefWpmGaps);
+            gapElementDuration = (int) (60.0f/wpmRefWordElements*1000)/wpmGaps;
+        }
+
+        for (Map.Entry<MorseElement, Integer> entry : rDurations.entrySet()) {
+            switch (entry.getKey()) {
+                case DOT:
+                case DASH:
+                case TINY_GAP:
+                    durations.put(entry.getKey(), entry.getValue() * elementDuration);
+                    break;
+                case SHORT_GAP:
+                case MEDIUM_GAP:
+                    durations.put(entry.getKey(), entry.getValue() * gapElementDuration);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

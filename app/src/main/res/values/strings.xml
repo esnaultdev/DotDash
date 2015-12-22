@@ -33,14 +33,14 @@
 
     <string name="pref_title_wpm">Speed (Words per minute)</string>
     <string-array name="pref_wpm_titles">
-        <item>30 (Ultra fast)</item>
+        <item>30 (Very fast)</item>
         <item>25</item>
         <item>20</item>
-        <item>18 (Normal)</item>
+        <item>18</item>
         <item>15</item>
         <item>13</item>
         <item>10</item>
-        <item>5 (Ultra slow)</item>
+        <item>5 (Very slow)</item>
     </string-array>
     <string-array name="pref_wpm_values">
         <item>30</item>

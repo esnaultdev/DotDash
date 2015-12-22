@@ -39,6 +39,10 @@ import java.util.List;
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
     public static final String KEY_PREF_DIAGRAM_SPEED = "diagram_speed";
+    public static final String KEY_PREF_WPM = "wpm";
+    public static final String KEY_PREF_WPM_REF_WORD = "wpm_ref_word";
+    public static final String KEY_PREF_WPM_GAPS = "wpm_gaps";
+    public static final String KEY_PREF_LONGER_GAPS = "longer_gaps";
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -100,9 +104,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // to their values. When their values change, their summaries are
         // updated to reflect the new value, per the Android Design
         // guidelines.
-        bindPreferenceSummaryToValue(findPreference("wpm"));
-        bindPreferenceSummaryToValue(findPreference("wpm_ref_word"));
-        bindPreferenceSummaryToValue(findPreference("wpm_gaps"));
+        bindPreferenceSummaryToValue(findPreference(KEY_PREF_WPM));
+        bindPreferenceSummaryToValue(findPreference(KEY_PREF_WPM_REF_WORD));
+        bindPreferenceSummaryToValue(findPreference(KEY_PREF_WPM_GAPS));
         bindPreferenceSummaryToValue(findPreference(KEY_PREF_DIAGRAM_SPEED));
     }
 
