@@ -231,6 +231,7 @@ public class IOManager implements TextInput.InputListener {
 
     public void pause() {
         textInput.pause();
+        stopOutputs();
     }
 
     public void resume() {
@@ -239,5 +240,6 @@ public class IOManager implements TextInput.InputListener {
 
     public void finish() {
         textInput.cancel();
+        stopOutputs();
     }
 }
