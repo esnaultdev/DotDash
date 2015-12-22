@@ -9,4 +9,8 @@
         android:icon="@mipmap/ic_out_white_48dp"
         android:title="@string/outputs"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/settings"
+        android:title="@string/title_activity_settings"
+        android:icon="@mipmap/ic_settings_white_24dp"
+        app:showAsAction="never" />
 </menu>

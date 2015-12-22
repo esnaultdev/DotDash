@@ -21,7 +21,13 @@
             android:name=".inputoutput.IOActivity"
             android:label="@string/title_activity_io"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".main.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="net.aohayo.dotdash.main.MainActivity" />
+
+
     </application>
 
 </manifest>

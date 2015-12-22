@@ -31,6 +31,9 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        if (thread == null) {
+            thread = new TimingDiagramThread(this);
+        }
         thread.setRunning(true);
         thread.start();
     }
@@ -168,7 +171,7 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
             if (activated) {
                 path.rLineTo(timeDiff * speed, 0);
             } else {
-                path.rMoveTo(timeDiff*speed, 0);
+                path.rMoveTo(timeDiff * speed, 0);
             }
             time = currentTime;
         }

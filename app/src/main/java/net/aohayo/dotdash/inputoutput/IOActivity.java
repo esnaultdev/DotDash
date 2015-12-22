@@ -1,6 +1,7 @@
 package net.aohayo.dotdash.inputoutput;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import net.aohayo.dotdash.R;
+import net.aohayo.dotdash.main.SettingsActivity;
 
 import java.util.List;
 
@@ -65,6 +67,9 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
             case R.id.outputs:
                 showOutputSelectionDialog(false);
                 return true;
+            case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
