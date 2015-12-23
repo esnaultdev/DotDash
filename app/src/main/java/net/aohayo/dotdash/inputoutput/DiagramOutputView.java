@@ -27,13 +27,15 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
 
         this.context = context;
 
-        thread = new TimingDiagramThread(this);
         holder = getHolder();
         holder.addCallback(this);
+        if (isInEditMode()) return;
+        thread = new TimingDiagramThread(this);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        if (isInEditMode()) return;
         if (thread == null) {
             thread = new TimingDiagramThread(this);
         }

@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">DotDash</string>
-    <string name="title_activity_io">IOActivity</string>
+    <string name="title_activity_io">Free mode</string>
     <string name="title_activity_settings">Settings</string>
     <string name="menu_cancel">Cancel</string>
     <string name="menu_select">Select</string>
     <string name="menu_previous">Previous</string>
+    <string name="menu_stop">Stop</string>
 
     <!-- Strings related to IO -->
 
@@ -27,7 +28,9 @@
     <string name="pref_dev_title">Developer</string>
     <string name="pref_dev_summary">Ao</string>
     <string name="pref_dev_website">http://aohayo.net</string>
-
+    <string name="pref_source_code_title">Source code</string>
+    <string name="pref_source_code_summary">Fork me on Github</string>
+    <string name="pref_code_repo">https://github.com/Aohayou/DotDash</string>
 
     <string name="pref_morse_title">Morse</string>
 
