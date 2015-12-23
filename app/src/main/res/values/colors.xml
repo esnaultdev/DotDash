@@ -6,4 +6,5 @@
     <color name="screenOutputOn">#ffffff</color>
     <color name="screenOutputOff">#000000</color>
     <color name="itemSeparator">#c0c0c0</color>
+    <color name="colorCancel">#ff5252</color>
 </resources>

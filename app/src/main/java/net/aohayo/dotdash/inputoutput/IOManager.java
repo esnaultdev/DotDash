@@ -10,6 +10,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import net.aohayo.dotdash.R;
+
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -97,7 +99,7 @@ public class IOManager implements TextInput.InputListener {
                 });
                 break;
             case TEXT:
-                EditText editText = (EditText) ((ViewGroup) view).getChildAt(0);
+                EditText editText = (EditText) view.findViewById(R.id.morse_input_text);
                 editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -240,6 +242,7 @@ public class IOManager implements TextInput.InputListener {
 
     public void finish() {
         textInput.cancel();
+        textInput.clear();
         stopOutputs();
     }
 }

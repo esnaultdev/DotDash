@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import net.aohayo.dotdash.R;
 import net.aohayo.dotdash.main.SettingsActivity;
@@ -35,7 +36,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
 
         ioManager.setInputView(MorseInput.FAB_BUTTON, findViewById(R.id.morse_input_fab));
         ioManager.setInputView(MorseInput.LARGE_BUTTON, findViewById(R.id.morse_input_large_button));
-        ioManager.setInputView(MorseInput.TEXT, findViewById(R.id.morse_input_text_card));
+        ioManager.setInputView(MorseInput.TEXT, findViewById(R.id.morse_input_text_container));
 
         ioManager.addOutput(MorseOutputs.AUDIO, new AudioOutput());
         ioManager.addOutput(MorseOutputs.SCREEN, new ScreenOutput(this, findViewById(R.id.content_layout)));
@@ -155,5 +156,9 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         OutputSelectionFragment outputSelection;
         outputSelection = OutputSelectionFragment.newInstance(hasPreviousDialog, ioManager.getOutputs());
         outputSelection.show(getFragmentManager(), "outputSelection");
+    }
+
+    public void onStopTextInput(View view) {
+        ioManager.finish();
     }
 }
