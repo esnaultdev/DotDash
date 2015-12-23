@@ -9,6 +9,7 @@
 
     <!-- Strings related to IO -->
 
+    <string name="input_outputs">Input &amp; outputs</string>
     <string name="outputs">Outputs</string>
     <string name="output_selection_dialog_title">Select your outputs</string>
     <string name="output_selection_sound">Sound</string>

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/input"
-        android:icon="@mipmap/ic_in_white_48dp"
-        android:title="@string/input"
-        app:showAsAction="ifRoom"/>
-    <item android:id="@+id/outputs"
-        android:icon="@mipmap/ic_out_white_48dp"
-        android:title="@string/outputs"
-        app:showAsAction="ifRoom"/>
+    <item
+        android:icon="@mipmap/ic_import_export_white_48dp"
+        android:title="@string/input_outputs"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/input"
+                android:title="@string/input"/>
+            <item android:id="@+id/outputs"
+                android:title="@string/outputs"/>
+        </menu>
+    </item>
     <item android:id="@+id/code_sheet"
         android:icon="@mipmap/ic_morse_white_48dp"
         android:title="@string/code_sheet"
