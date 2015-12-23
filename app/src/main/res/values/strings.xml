@@ -21,6 +21,7 @@
     <string name="input_selection_large_button">Large button</string>
     <string name="input_selection_text">Text</string>
     <string name="morse_input_text_hint">Text to send</string>
+    <string name="code_sheet">Code sheet</string>
 
     <!-- Strings related to Settings -->
 

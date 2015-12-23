@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="code_sheet_column_nb">3</integer>
+</resources>

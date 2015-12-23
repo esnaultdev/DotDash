@@ -12,6 +12,7 @@ import android.view.View;
 
 import net.aohayo.dotdash.R;
 import net.aohayo.dotdash.main.SettingsActivity;
+import net.aohayo.dotdash.morse.CodeSheetFragment;
 
 import java.util.List;
 
@@ -67,6 +68,9 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 return true;
             case R.id.outputs:
                 showOutputSelectionDialog(false);
+                return true;
+            case R.id.code_sheet:
+                showCodeSheetDialog();
                 return true;
             case R.id.settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
@@ -156,6 +160,11 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         OutputSelectionFragment outputSelection;
         outputSelection = OutputSelectionFragment.newInstance(hasPreviousDialog, ioManager.getOutputs());
         outputSelection.show(getFragmentManager(), "outputSelection");
+    }
+
+    private void showCodeSheetDialog() {
+        CodeSheetFragment codeSheet = new CodeSheetFragment();
+        codeSheet.show(getFragmentManager(), "codeSheet");
     }
 
     public void onStopTextInput(View view) {

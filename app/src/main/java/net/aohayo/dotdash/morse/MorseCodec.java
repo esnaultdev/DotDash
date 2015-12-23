@@ -13,8 +13,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MorseCodec {
@@ -128,6 +131,15 @@ public class MorseCodec {
         } else {
             return codes.get(c);
         }
+    }
+
+    public List<CodePair> getCodePairs() {
+        ArrayList<CodePair> pairs = new ArrayList<>();
+        for (Map.Entry<Character, MorseElement[]> entry : codes.entrySet()) {
+            pairs.add(new CodePair(entry.getKey(), entry.getValue()));
+        }
+        Collections.sort(pairs, new CodePair.CodePairComparator());
+        return pairs;
     }
 
     private void computeDurations(Context context) {
