@@ -83,17 +83,8 @@
                     android:imeOptions="actionSend" />
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/menu_stop"
-            android:id="@+id/button3"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0"
-            android:backgroundTint="@color/colorCancel"
-            android:textColor="@android:color/white"
-            android:elevation="3dp"
-            android:onClick="onStopTextInput"/>
+        <include layout="@layout/stop_button" />
+
     </LinearLayout>
 
 </RelativeLayout>
