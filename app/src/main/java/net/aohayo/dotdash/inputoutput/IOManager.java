@@ -1,12 +1,14 @@
 package net.aohayo.dotdash.inputoutput;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -136,6 +138,10 @@ public class IOManager implements TextInput.InputListener {
         if (this.input == MorseInput.TEXT) {
             textInput.cancel();
             textInput.clear();
+            EditText editText = (EditText) oldInputView.findViewById(R.id.morse_input_text);
+            InputMethodManager imm;
+            imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);;
         }
 
         this.input = input;
