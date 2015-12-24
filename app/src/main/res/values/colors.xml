@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryLight">#2196F3</color>
     <color name="colorAccent">#17bef1</color>
     <color name="screenOutputOn">#ffffff</color>
     <color name="screenOutputOff">#000000</color>

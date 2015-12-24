@@ -18,6 +18,6 @@
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/settings"
         android:title="@string/title_activity_settings"
-        android:icon="@mipmap/ic_settings_white_24dp"
+        android:icon="@mipmap/ic_settings_white_48dp"
         app:showAsAction="never" />
 </menu>

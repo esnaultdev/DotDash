@@ -1,30 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/menu_container"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_dot_dash_96dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="24sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-        <Button
-            android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/menu_container">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/main_menu_card_width"
             android:layout_height="wrap_content"
-            android:text="@string/title_activity_io"
-            android:id="@+id/button"
+            android:layout_weight="1"
+            card_view:cardElevation="3dp"
+            card_view:cardBackgroundColor="@color/colorPrimary"
+            card_view:cardUseCompatPadding="true"
             android:onClick="startIOActivity"
-            android:layout_gravity="center_horizontal" />
-        <Button
-            android:layout_width="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_import_export_white_48dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_activity_io"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/main_menu_card_width"
             android:layout_height="wrap_content"
-            android:text="@string/title_activity_settings"
-            android:id="@+id/button2"
+            android:layout_weight="1"
+            card_view:cardElevation="3dp"
+            card_view:cardBackgroundColor="@color/colorPrimary"
+            card_view:cardUseCompatPadding="true"
             android:onClick="startSettingsActivity"
-            android:layout_gravity="center_horizontal" />
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_settings_white_48dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_activity_settings"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 </RelativeLayout>
