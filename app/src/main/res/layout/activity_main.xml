@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textColor="@color/colorPrimaryLight"
+            android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
     </LinearLayout>
 
