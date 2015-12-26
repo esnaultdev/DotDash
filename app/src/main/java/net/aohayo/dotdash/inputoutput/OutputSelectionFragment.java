@@ -19,25 +19,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OutputSelectionFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
-    private static final String HAS_PREVIOUS_DIALOG = "previousDialog";
     private static final String SELECTED_OUTPUTS = "selectedOutputs";
 
     public interface DialogListener {
         void onOutputDialogPositiveClick(DialogFragment dialog);
-        void onOutputDialogPreviousClick(DialogFragment dialog);
         void onOutputDialogCancelClick(DialogFragment dialog);
     }
 
     private DialogListener dialogListener;
     private List<MorseOutputs> selectedOutputs;
-    private boolean hasPrevious;
     private boolean vibratorAvailable;
 
-    public static OutputSelectionFragment newInstance(boolean hasPrevious, List<MorseOutputs> selectedOutputs) {
+    public static OutputSelectionFragment newInstance(List<MorseOutputs> selectedOutputs) {
         OutputSelectionFragment output = new OutputSelectionFragment();
 
         Bundle args = new Bundle();
-        args.putBoolean(HAS_PREVIOUS_DIALOG, hasPrevious);
         args.putSerializable(SELECTED_OUTPUTS, new ArrayList<>(selectedOutputs));
         output.setArguments(args);
 
@@ -82,19 +78,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                     }
                 });
 
-        hasPrevious = getArguments().getBoolean(HAS_PREVIOUS_DIALOG);
-        if (hasPrevious) {
-            builder.setNeutralButton(R.string.menu_previous, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialogListener.onOutputDialogPreviousClick(OutputSelectionFragment.this);
-                }
-            });
-        }
-
         Dialog dialog = builder.create();
-        if (hasPrevious) {
-            dialog.setCanceledOnTouchOutside(false);
-        }
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
@@ -144,11 +128,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
     }
 
     public void onCancel(DialogInterface dialog) {
-        if (hasPrevious) {
-            dialogListener.onOutputDialogPreviousClick(this);
-        } else {
-            dialogListener.onOutputDialogCancelClick(this);
-        }
+        dialogListener.onOutputDialogCancelClick(this);
     }
 
     @Override

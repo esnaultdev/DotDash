@@ -67,7 +67,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 showInputSelectionDialog(false);
                 return true;
             case R.id.outputs:
-                showOutputSelectionDialog(false);
+                showOutputSelectionDialog();
                 return true;
             case R.id.code_sheet:
                 showCodeSheetDialog();
@@ -122,7 +122,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         ioManager.setCurrentInput(selectedInput);
 
         if (((InputSelectionFragment) dialog).hasNextDialog()) {
-            showOutputSelectionDialog(true);
+            showOutputSelectionDialog();
         }
     }
 
@@ -140,11 +140,6 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     }
 
     @Override
-    public void onOutputDialogPreviousClick(DialogFragment dialog) {
-        showInputSelectionDialog(true);
-    }
-
-    @Override
     public void onOutputDialogCancelClick(DialogFragment dialog) {
         if (!ioManager.hasOutputs()) {
             finish();
@@ -156,9 +151,9 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         inputSelection.show(getFragmentManager(), "inputSelection");
     }
 
-    private void showOutputSelectionDialog(boolean hasPreviousDialog) {
+    private void showOutputSelectionDialog() {
         OutputSelectionFragment outputSelection;
-        outputSelection = OutputSelectionFragment.newInstance(hasPreviousDialog, ioManager.getOutputs());
+        outputSelection = OutputSelectionFragment.newInstance(ioManager.getOutputs());
         outputSelection.show(getFragmentManager(), "outputSelection");
     }
 
