@@ -36,7 +36,10 @@ public class TextInput {
 
     public TextInput(Context context, InputListener listener, Bundle savedInstanceState) {
         this.listener = listener;
-        morseCodec = new MorseCodec(context, R.xml.morse_code_itu);
+        morseCodec = MorseCodec.getInstance();
+        if (!morseCodec.isInit()) {
+            morseCodec.init(context, R.xml.morse_code_itu);
+        }
         texts = new LinkedList<>();
         elements = new LinkedList<>();
 

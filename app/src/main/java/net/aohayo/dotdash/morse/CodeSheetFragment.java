@@ -29,7 +29,11 @@ public class CodeSheetFragment extends DialogFragment {
             public void onShow(DialogInterface dialog) {
                 AlertDialog alertDialog = (AlertDialog) dialog;
                 GridView listView = (GridView) alertDialog.findViewById(R.id.code_list);
-                CodeSheetAdapter adapter = new CodeSheetAdapter(context, new MorseCodec(context, R.xml.morse_code_itu));
+                MorseCodec codec = MorseCodec.getInstance();
+                if (!codec.isInit()) {
+                    codec.init(context, R.xml.morse_code_itu);
+                }
+                CodeSheetAdapter adapter = new CodeSheetAdapter(context, codec);
                 listView.setAdapter(adapter);
                 View closeButton = alertDialog.findViewById(R.id.image_view_close);
                 closeButton.setOnClickListener(new View.OnClickListener() {
