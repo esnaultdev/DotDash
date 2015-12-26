@@ -92,11 +92,11 @@
         <item>Ultra slow</item>
     </string-array>
     <string-array name="pref_diagram_speed_values">
-        <item>250</item>
         <item>150</item>
         <item>100</item>
-        <item>80</item>
+        <item>75</item>
         <item>50</item>
+        <item>20</item>
     </string-array>
     <string name="pref_diagram_speed_default">100</string>
 

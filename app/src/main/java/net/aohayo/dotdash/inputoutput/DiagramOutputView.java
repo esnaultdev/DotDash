@@ -95,9 +95,11 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
             super();
             this.view = view;
 
+            float density = getResources().getDisplayMetrics().density;
+
             paint = new Paint();
             paint.setColor(context.getResources().getColor(R.color.colorPrimaryDark));
-            paint.setStrokeWidth(6.0f);
+            paint.setStrokeWidth(4.0f * density);
             paint.setStrokeCap(Paint.Cap.BUTT);
             paint.setStyle(Paint.Style.STROKE);
 
@@ -109,7 +111,7 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
             String prefSpeed = sharedPref.getString(
                     SettingsActivity.KEY_PREF_DIAGRAM_SPEED,
                     context.getResources().getString(R.string.pref_diagram_speed_default));
-            speed = Integer.parseInt(prefSpeed);
+            speed = Integer.parseInt(prefSpeed) * density;
         }
 
         public void setRunning(boolean running) {
