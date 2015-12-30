@@ -13,7 +13,7 @@
         </menu>
     </item>
     <item android:id="@+id/code_sheet"
-        android:icon="@mipmap/ic_morse_white_48dp"
+        android:icon="@mipmap/ic_description_white_24dp"
         android:title="@string/code_sheet"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/settings"

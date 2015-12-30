@@ -8,4 +8,5 @@
     <dimen name="button_elevation_resting">2dp</dimen>
     <dimen name="button_elevation_pressed">8dp</dimen>
     <dimen name="main_menu_card_width">200dp</dimen>
+    <dimen name="io_selection_icon_size">32dp</dimen>
 </resources>

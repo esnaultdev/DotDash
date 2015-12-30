@@ -42,8 +42,8 @@
                     android:id="@+id/frameLayout">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/io_selection_icon_size"
+                        android:layout_height="@dimen/io_selection_icon_size"
                         android:id="@+id/imageView"
                         android:src="@mipmap/ic_volume_up_white_48dp" />
                 </FrameLayout>
@@ -91,8 +91,8 @@
                     android:id="@+id/frameLayout2" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/io_selection_icon_size"
+                        android:layout_height="@dimen/io_selection_icon_size"
                         android:id="@+id/imageView4"
                         android:src="@mipmap/ic_smartphone_white_48dp" />
                 </FrameLayout>
@@ -139,8 +139,8 @@
                     android:id="@+id/frameLayout3" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/io_selection_icon_size"
+                        android:layout_height="@dimen/io_selection_icon_size"
                         android:id="@+id/imageView3"
                         android:src="@mipmap/ic_vibration_white_48dp"
                         android:background="@color/colorAccent" />
@@ -189,8 +189,8 @@
                     android:id="@+id/frameLayout4" >
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/io_selection_icon_size"
+                        android:layout_height="@dimen/io_selection_icon_size"
                         android:id="@+id/imageView5"
                         android:src="@mipmap/ic_morse_white_48dp"
                         android:background="@color/colorAccent" />
