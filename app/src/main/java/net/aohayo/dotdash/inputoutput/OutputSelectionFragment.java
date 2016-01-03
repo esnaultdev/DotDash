@@ -105,7 +105,6 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
 
                 if (!vibratorAvailable) {
                     alertDialog.findViewById(R.id.vibrator_output_layout).setVisibility(View.GONE);
-                    alertDialog.findViewById(R.id.vibrator_output_separator).setVisibility(View.GONE);
                 } else {
                     CheckBox vibratorCB = (CheckBox) alertDialog.findViewById(R.id.vibrator_output_checkbox);
                     vibratorCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
@@ -122,6 +121,15 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 screenOutputLayout.setOnClickListener(OutputSelectionFragment.this);
                 vibratorOutputLayout.setOnClickListener(OutputSelectionFragment.this);
                 diagramOutputLayout.setOnClickListener(OutputSelectionFragment.this);
+
+                View soundOutputFAB = alertDialog.findViewById(R.id.sound_output_fab);
+                View screenOutputFAB = alertDialog.findViewById(R.id.screen_output_fab);
+                View vibratorOutputFAB = alertDialog.findViewById(R.id.vibrator_output_fab);
+                View diagramOutputFAB = alertDialog.findViewById(R.id.diagram_output_fab);
+                soundOutputFAB.setOnClickListener(OutputSelectionFragment.this);
+                screenOutputFAB.setOnClickListener(OutputSelectionFragment.this);
+                vibratorOutputFAB.setOnClickListener(OutputSelectionFragment.this);
+                diagramOutputFAB.setOnClickListener(OutputSelectionFragment.this);
             }
         });
         return dialog;
@@ -172,16 +180,20 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
         CheckBox checkBox = null;
         switch (v.getId()) {
             case R.id.sound_output_layout:
-                checkBox = (CheckBox) v.findViewById(R.id.sound_output_checkbox);
+            case R.id.sound_output_fab:
+                checkBox = (CheckBox) getDialog().findViewById(R.id.sound_output_checkbox);
                 break;
             case R.id.screen_output_layout:
-                checkBox = (CheckBox) v.findViewById(R.id.screen_output_checkbox);
+            case R.id.screen_output_fab:
+                checkBox = (CheckBox) getDialog().findViewById(R.id.screen_output_checkbox);
                 break;
             case R.id.vibrator_output_layout:
-                checkBox = (CheckBox) v.findViewById(R.id.vibrator_output_checkbox);
+            case R.id.vibrator_output_fab:
+                checkBox = (CheckBox) getDialog().findViewById(R.id.vibrator_output_checkbox);
                 break;
             case R.id.diagram_output_layout:
-                checkBox = (CheckBox) v.findViewById(R.id.diagram_output_checkbox);
+            case R.id.diagram_output_fab:
+                checkBox = (CheckBox) getDialog().findViewById(R.id.diagram_output_checkbox);
                 break;
             default:
                 break;

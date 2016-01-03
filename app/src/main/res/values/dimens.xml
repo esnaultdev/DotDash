@@ -1,18 +1,28 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
     <dimen name="fab_size">56dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="mini_fab_size">40dp</dimen>
     <dimen name="mini_fab_margin">8dp</dimen>
 
+    <dimen name="dialog_title_text_size">20sp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+    <dimen name="dialog_title_body_padding">20dp</dimen>
+
+    <dimen name="text_input_horizontal_margin">16dp</dimen>
+    <dimen name="text_input_vertical_margin">8dp</dimen>
+
+    <!-- Avatar with text and icon list -->
+    <dimen name="single_line_item_font_size">16sp</dimen>
+    <dimen name="single_line_item_icon_horizontal_padding">16dp</dimen>
+    <dimen name="single_line_item_text_left_padding">72dp</dimen>
+    <dimen name="single_line_item_avatar_left_padding">16dp</dimen>
+    <dimen name="single_line_item_height">56dp</dimen>
+    <dimen name="list_top_padding">8dp</dimen>
+
     <dimen name="morse_input_fab_size">72dp</dimen>
-    <dimen name="button_elevation_resting">2dp</dimen>
-    <dimen name="button_elevation_pressed">8dp</dimen>
     <dimen name="main_menu_card_width">200dp</dimen>
     <dimen name="io_selection_icon_size">32dp</dimen>
-
-    <dimen name="text_input_horizontal_margin">8dp</dimen>
-    <dimen name="text_input_vertical_margin">8dp</dimen>
 </resources>
