@@ -101,7 +101,7 @@ public class IOManager implements TextInput.InputListener {
                 });
                 break;
             case TEXT:
-                EditText editText = (EditText) view.findViewById(R.id.morse_input_text);
+                final EditText editText = (EditText) view.findViewById(R.id.morse_input_text);
                 editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -117,6 +117,15 @@ public class IOManager implements TextInput.InputListener {
                         return handled;
                     }
                 });
+
+                View sendButton = view.findViewById(R.id.morse_input_text_send_button);
+                sendButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editText.onEditorAction(EditorInfo.IME_ACTION_SEND);
+                    }
+                });
+
                 break;
             default:
                 break;
