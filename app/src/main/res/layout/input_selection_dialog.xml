@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content" android:id="@+id/inputSelection">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/inputSelection"
+    android:paddingTop="@dimen/dialog_padding"
+    android:paddingLeft="@dimen/dialog_padding"
+    android:paddingRight="@dimen/dialog_padding">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/input_selection_dialog_title"
-        android:id="@+id/textView"
-        android:textSize="24sp"
-        android:textColor="@color/colorPrimary"
-        android:layout_margin="15dp"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@color/colorPrimary"/>
+        android:textSize="@dimen/dialog_title_text_size"
+        android:textColor="@android:color/black"/>
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView2">
+        android:paddingTop="@dimen/dialog_title_body_padding">
 
         <LinearLayout
             android:orientation="vertical"
@@ -34,38 +33,25 @@
                 android:clickable="true"
                 android:background="?android:attr/selectableItemBackground">
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
-                    android:padding="10dp"
-                    android:id="@+id/frameLayout">
-
-                    <ImageView
-                        android:layout_width="@dimen/io_selection_icon_size"
-                        android:layout_height="@dimen/io_selection_icon_size"
-                        android:id="@+id/imageView"
-                        android:src="@mipmap/ic_smartphone_fab_white_48dp"/>
-                </FrameLayout>
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/fab_input_fab"
+                    android:src="@mipmap/ic_smartphone_fab_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/input_selection_fab"
-                    android:id="@+id/textView2"
+                    android:textSize="@dimen/single_line_item_font_size"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/frameLayout"
-                    android:layout_toEndOf="@+id/frameLayout"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="@dimen/single_line_item_text_left_padding"/>
 
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/itemSeparator"
-                android:id="@+id/screen_output_separator"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -74,38 +60,25 @@
                 android:clickable="true"
                 android:background="?android:attr/selectableItemBackground">
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
-                    android:padding="10dp"
-                    android:id="@+id/frameLayout2">
-
-                    <ImageView
-                        android:layout_width="@dimen/io_selection_icon_size"
-                        android:layout_height="@dimen/io_selection_icon_size"
-                        android:id="@+id/imageView4"
-                        android:src="@mipmap/ic_smartphone_large_button_white_48dp" />
-                </FrameLayout>
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/large_button_input_fab"
+                    android:src="@mipmap/ic_smartphone_large_button_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/input_selection_large_button"
-                    android:id="@+id/textView3"
+                    android:textSize="@dimen/single_line_item_font_size"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/frameLayout2"
-                    android:layout_toEndOf="@+id/frameLayout2"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="@dimen/single_line_item_text_left_padding"/>
 
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/itemSeparator"
-                android:id="@+id/vibrator_output_separator"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -114,32 +87,23 @@
                 android:clickable="true"
                 android:background="?android:attr/selectableItemBackground">
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
-                    android:padding="10dp"
-                    android:id="@+id/frameLayout3" >
-
-                    <ImageView
-                        android:layout_width="@dimen/io_selection_icon_size"
-                        android:layout_height="@dimen/io_selection_icon_size"
-                        android:id="@+id/imageView3"
-                        android:src="@mipmap/ic_alphabetical_white_48dp"
-                        android:background="@color/colorAccent"/>
-
-                </FrameLayout>
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/text_input_fab"
+                    android:src="@mipmap/ic_alphabetical_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/input_selection_text"
-                    android:id="@+id/textView4"
+                    android:textSize="@dimen/single_line_item_font_size"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/frameLayout3"
-                    android:layout_toEndOf="@+id/frameLayout3"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="@dimen/single_line_item_text_left_padding"/>
 
             </RelativeLayout>
 

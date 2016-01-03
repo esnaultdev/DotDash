@@ -76,6 +76,13 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
                 fabInputLayout.setOnClickListener(InputSelectionFragment.this);
                 lbInputLayout.setOnClickListener(InputSelectionFragment.this);
                 textInputLayout.setOnClickListener(InputSelectionFragment.this);
+
+                View fabInputFAB = alertDialog.findViewById(R.id.fab_input_fab);
+                View lbInputFAB = alertDialog.findViewById(R.id.large_button_input_fab);
+                View textInputFAB = alertDialog.findViewById(R.id.text_input_fab);
+                fabInputFAB.setOnClickListener(InputSelectionFragment.this);
+                lbInputFAB.setOnClickListener(InputSelectionFragment.this);
+                textInputFAB.setOnClickListener(InputSelectionFragment.this);
             }
         });
         return dialog;
@@ -89,16 +96,19 @@ public class InputSelectionFragment extends DialogFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_input_layout:
+            case R.id.fab_input_fab:
                 selectedInput = MorseInput.FAB_BUTTON;
                 dialogListener.onInputDialogPositiveClick(this);
                 getDialog().dismiss();
                 break;
             case R.id.large_button_input_layout:
+            case R.id.large_button_input_fab:
                 selectedInput = MorseInput.LARGE_BUTTON;
                 dialogListener.onInputDialogPositiveClick(this);
                 getDialog().dismiss();
                 break;
             case R.id.text_input_layout:
+            case R.id.text_input_fab:
                 selectedInput = MorseInput.TEXT;
                 dialogListener.onInputDialogPositiveClick(this);
                 getDialog().dismiss();
