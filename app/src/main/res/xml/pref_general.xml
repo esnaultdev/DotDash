@@ -58,7 +58,7 @@
         <Preference
             android:title="@string/pref_dev_title"
             android:summary="@string/pref_dev_summary"
-            android:icon="@mipmap/ic_ao_48dp" >
+            android:icon="@mipmap/ic_ao_36dp" >
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="@string/pref_dev_website" />
