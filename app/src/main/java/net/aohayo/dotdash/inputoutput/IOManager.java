@@ -240,7 +240,19 @@ public class IOManager implements TextInput.InputListener {
             if (entry.getValue()) {
                 MorseOutput output = outputs.get(entry.getKey());
                 if (entry.getValue() && output != null) {
+                    output.stop();
                     output.finish();
+                }
+            }
+        }
+    }
+
+    private void resumeOutputs() {
+        for (Map.Entry<MorseOutputs, Boolean> entry : enabledOutputs.entrySet()) {
+            if (entry.getValue()) {
+                MorseOutput output = outputs.get(entry.getKey());
+                if (entry.getValue() && output != null) {
+                    output.resume();
                 }
             }
         }
@@ -248,17 +260,21 @@ public class IOManager implements TextInput.InputListener {
 
     public void pause() {
         textInput.pause();
-        stopOutputs();
+        finishOutputs();
     }
 
     public void resume() {
         textInput.resume();
+        resumeOutputs();
     }
 
     public void finish() {
+        stopTextInput();
+        finishOutputs();
+    }
+
+    public void stopTextInput() {
         textInput.cancel();
         textInput.clear();
-        stopOutputs();
-        finishOutputs();
     }
 }

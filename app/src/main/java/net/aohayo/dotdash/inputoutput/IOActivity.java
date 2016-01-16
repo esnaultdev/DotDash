@@ -39,7 +39,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         ioManager.setInputView(MorseInput.LARGE_BUTTON, findViewById(R.id.morse_input_large_button));
         ioManager.setInputView(MorseInput.TEXT, findViewById(R.id.morse_input_text_container));
 
-        ioManager.addOutput(MorseOutputs.AUDIO, new AudioOutput());
+        ioManager.addOutput(MorseOutputs.AUDIO, new AudioOutput(this));
         ioManager.addOutput(MorseOutputs.SCREEN, new ScreenOutput(this, findViewById(R.id.content_layout)));
         ioManager.addOutput(MorseOutputs.DIAGRAM, new DiagramOutput(
                 (DiagramOutputView) findViewById(R.id.morse_output_timing_diagram),
@@ -163,6 +163,6 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     }
 
     public void onStopTextInput(View view) {
-        ioManager.finish();
+        ioManager.stopTextInput();
     }
 }

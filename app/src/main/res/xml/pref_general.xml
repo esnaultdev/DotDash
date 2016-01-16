@@ -42,6 +42,15 @@
         android:title="@string/pref_io_title">
 
         <ListPreference
+            android:defaultValue="@string/pref_tone_frequency_default"
+            android:entries="@array/pref_tone_frequency_titles_values"
+            android:entryValues="@array/pref_tone_frequency_titles_values"
+            android:key="tone_frequency"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_tone_frequency" />
+
+        <ListPreference
             android:defaultValue="@string/pref_diagram_speed_default"
             android:entries="@array/pref_diagram_speed_titles"
             android:entryValues="@array/pref_diagram_speed_values"

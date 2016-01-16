@@ -12,7 +12,7 @@ public class ToneGenerator {
     private final int numSamples = duration * sampleRate;
     private final byte generatedSnd[] = new byte[2 * numSamples];
     private final byte silenceSnd[] = new byte[2 * numSamples];
-    private double toneFrequency;
+    private int toneFrequency;
     private AudioTrack audioTrack;
 
     public ToneGenerator(int frequency) {
@@ -22,6 +22,15 @@ public class ToneGenerator {
                 sampleRate, AudioFormat.CHANNEL_OUT_MONO,
                 AudioFormat.ENCODING_PCM_16BIT, numSamples,
                 AudioTrack.MODE_STATIC);
+    }
+
+    public void setFrequency(int frequency) {
+        toneFrequency = frequency;
+        generateTone();
+    }
+
+    public int getFrequency() {
+        return toneFrequency;
     }
 
     private void generateTone() {
@@ -66,7 +75,7 @@ public class ToneGenerator {
         int position = audioTrack.getPlaybackHeadPosition();
         audioTrack.stop();
         audioTrack.flush();
-        int factor = (int) (sampleRate / toneFrequency);
+        int factor =  sampleRate / toneFrequency;
         int endPosition = factor * (position/factor + 1);
         audioTrack.write(silenceSnd, 0, silenceSnd.length);
         audioTrack.write(generatedSnd, position * 2, (endPosition - position)*2);
@@ -81,5 +90,12 @@ public class ToneGenerator {
         }
         audioTrack.stop();
         audioTrack.release();
+    }
+
+    public void resume() {
+        audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+                sampleRate, AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT, numSamples,
+                AudioTrack.MODE_STATIC);
     }
 }

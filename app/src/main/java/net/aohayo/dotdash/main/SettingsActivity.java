@@ -39,6 +39,7 @@ import java.util.List;
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
     public static final String KEY_PREF_DIAGRAM_SPEED = "diagram_speed";
+    public static final String KEY_PREF_TONE_FREQUENCY = "tone_frequency";
     public static final String KEY_PREF_WPM = "wpm";
     public static final String KEY_PREF_WPM_REF_WORD = "wpm_ref_word";
     public static final String KEY_PREF_WPM_GAPS = "wpm_gaps";
@@ -108,6 +109,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         bindPreferenceSummaryToValue(findPreference(KEY_PREF_WPM_REF_WORD));
         bindPreferenceSummaryToValue(findPreference(KEY_PREF_WPM_GAPS));
         bindPreferenceSummaryToValue(findPreference(KEY_PREF_DIAGRAM_SPEED));
+        bindPreferenceSummaryToValue(findPreference(KEY_PREF_TONE_FREQUENCY));
     }
 
     /**

@@ -100,4 +100,14 @@
     </string-array>
     <string name="pref_diagram_speed_default" translatable="false">100</string>
 
+    <string name="pref_title_tone_frequency">Tone frequency (Hz)</string>
+    <string-array name="pref_tone_frequency_titles_values">
+        <item>800</item>
+        <item>700</item>
+        <item>600</item>
+        <item>500</item>
+        <item>400</item>
+    </string-array>
+    <string name="pref_tone_frequency_default" translatable="false">600</string>
+
 </resources>
