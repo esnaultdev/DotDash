@@ -24,7 +24,7 @@ public class CodeSheetAdapter extends ArrayAdapter<CodePair> {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.code_sheet_row, parent, false);
+            convertView = inflater.inflate(R.layout.code_sheet_item, parent, false);
         }
 
         TextView textViewChar = (TextView) convertView.findViewById(R.id.text_view_character);
