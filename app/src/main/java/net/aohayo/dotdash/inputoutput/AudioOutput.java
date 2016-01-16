@@ -16,4 +16,9 @@ public class AudioOutput extends MorseOutput {
     public void stop() {
         generator.stopTone();
     }
+
+    @Override
+    public void finish() {
+        generator.finish();
+    }
 }
