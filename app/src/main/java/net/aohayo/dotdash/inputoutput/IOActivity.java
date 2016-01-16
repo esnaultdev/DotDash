@@ -1,10 +1,12 @@
 package net.aohayo.dotdash.inputoutput;
 
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +20,9 @@ import java.util.List;
 
 public class IOActivity extends AppCompatActivity implements OutputSelectionFragment.DialogListener, InputSelectionFragment.DialogListener {
     private static final String STATE_IO_MANAGER = "ioManager";
+    private static final String INPUT_SELECTION_FRAGMENT_ID = "inputSelection";
+    private static final String OUTPUT_SELECTION_FRAGMENT_ID = "outputSelection";
+    private static final String CODE_SHEET_FRAGMENT_ID = "codeSheet";
 
     private IOManager ioManager;
 
@@ -49,7 +54,10 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         }
 
         if (!ioManager.hasInput()) {
-            showInputSelectionDialog(!ioManager.hasOutputs());
+            Fragment inputSelectionFragment = getFragmentManager().findFragmentByTag(INPUT_SELECTION_FRAGMENT_ID);
+            if (inputSelectionFragment == null) {
+                showInputSelectionDialog();
+            }
         }
     }
 
@@ -64,7 +72,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.input:
-                showInputSelectionDialog(false);
+                showInputSelectionDialog();
                 return true;
             case R.id.outputs:
                 showOutputSelectionDialog();
@@ -121,7 +129,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         MorseInput selectedInput = ((InputSelectionFragment) dialog).getSelectedInput();
         ioManager.setCurrentInput(selectedInput);
 
-        if (((InputSelectionFragment) dialog).hasNextDialog()) {
+        if (!ioManager.hasOutputs()) {
             showOutputSelectionDialog();
         }
     }
@@ -146,20 +154,20 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         }
     }
 
-    private void showInputSelectionDialog(boolean hasNextDialog) {
-        InputSelectionFragment inputSelection = InputSelectionFragment.newInstance(hasNextDialog);
-        inputSelection.show(getFragmentManager(), "inputSelection");
+    private void showInputSelectionDialog() {
+        InputSelectionFragment inputSelection = new InputSelectionFragment();
+        inputSelection.show(getFragmentManager(), INPUT_SELECTION_FRAGMENT_ID);
     }
 
     private void showOutputSelectionDialog() {
         OutputSelectionFragment outputSelection;
         outputSelection = OutputSelectionFragment.newInstance(ioManager.getOutputs());
-        outputSelection.show(getFragmentManager(), "outputSelection");
+        outputSelection.show(getFragmentManager(), OUTPUT_SELECTION_FRAGMENT_ID);
     }
 
     private void showCodeSheetDialog() {
         CodeSheetFragment codeSheet = new CodeSheetFragment();
-        codeSheet.show(getFragmentManager(), "codeSheet");
+        codeSheet.show(getFragmentManager(), CODE_SHEET_FRAGMENT_ID);
     }
 
     public void onStopTextInput(View view) {
