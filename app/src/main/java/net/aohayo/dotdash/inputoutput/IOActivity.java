@@ -2,15 +2,16 @@ package net.aohayo.dotdash.inputoutput;
 
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import net.aohayo.dotdash.R;
 import net.aohayo.dotdash.main.SettingsActivity;
@@ -172,5 +173,13 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
 
     public void onStopTextInput(View view) {
         ioManager.stopTextInput();
+    }
+
+    public void onFocusTextInput(View view) {
+        View textInput = findViewById(R.id.morse_input_text);
+        if (textInput.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(textInput, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 }

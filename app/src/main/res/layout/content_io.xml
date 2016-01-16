@@ -69,7 +69,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/morse_input_text_container"
         android:visibility="visible"
-        android:background="@android:color/white" >
+        android:background="@android:color/white"
+        android:onClick="onFocusTextInput">
 
         <EditText
             android:layout_width="match_parent"
