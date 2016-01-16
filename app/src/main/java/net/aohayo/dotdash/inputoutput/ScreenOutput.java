@@ -9,7 +9,6 @@ import net.aohayo.dotdash.R;
 public class ScreenOutput extends MorseOutput {
     View outputView;
     Context context;
-    CountDownTimer timer;
 
     public ScreenOutput(Context context, View view) {
         this.context = context;
@@ -18,24 +17,39 @@ public class ScreenOutput extends MorseOutput {
 
     @Override
     public void init() {
-        outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOff));
+        screenOff();
     }
 
     @Override
     public void finish() {
-        outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOn));
+        screenOn();
     }
 
     @Override
     public void start() {
-        outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOn));
+        screenOn();
     }
 
     @Override
     public void stop() {
-        outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOff));
-        if (timer != null) {
-            timer.cancel();
-        }
+        screenOff();
+    }
+
+    private void screenOn() {
+        outputView.post(new Runnable() {
+            @Override
+            public void run() {
+                outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOn));
+            }
+        });
+    }
+
+    private void screenOff() {
+        outputView.post(new Runnable() {
+            @Override
+            public void run() {
+                outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOff));
+            }
+        });
     }
 }

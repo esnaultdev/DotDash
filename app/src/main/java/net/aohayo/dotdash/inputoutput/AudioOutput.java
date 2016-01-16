@@ -7,7 +7,7 @@ public class AudioOutput extends MorseOutput {
     private ToneGenerator generator;
 
     public AudioOutput() {
-        generator = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
+        generator = new ToneGenerator(AudioManager.STREAM_SYSTEM, ToneGenerator.MAX_VOLUME);
     }
 
     @Override

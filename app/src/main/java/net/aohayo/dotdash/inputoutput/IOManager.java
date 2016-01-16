@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -217,33 +216,23 @@ public class IOManager implements TextInput.InputListener {
     }
 
     private void startOutputs() {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                for (Map.Entry<MorseOutputs, Boolean> entry : enabledOutputs.entrySet()) {
-                    MorseOutput output = outputs.get(entry.getKey());
-                    if (entry.getValue() && output != null) {
-                        output.start();
-                    }
-                }
+        for (Map.Entry<MorseOutputs, Boolean> entry : enabledOutputs.entrySet()) {
+            MorseOutput output = outputs.get(entry.getKey());
+            if (entry.getValue() && output != null) {
+                output.start();
             }
-        });
+        }
     }
 
     private void stopOutputs() {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                for (Map.Entry<MorseOutputs, Boolean> entry : enabledOutputs.entrySet()) {
-                    if (entry.getValue()) {
-                        MorseOutput output = outputs.get(entry.getKey());
-                        if (entry.getValue() && output != null) {
-                            output.stop();
-                        }
-                    }
+        for (Map.Entry<MorseOutputs, Boolean> entry : enabledOutputs.entrySet()) {
+            if (entry.getValue()) {
+                MorseOutput output = outputs.get(entry.getKey());
+                if (entry.getValue() && output != null) {
+                    output.stop();
                 }
             }
-        });
+        }
     }
 
     public void pause() {

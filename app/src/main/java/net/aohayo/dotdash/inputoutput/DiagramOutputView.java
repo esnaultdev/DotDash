@@ -6,10 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.SystemClock;
+import android.os.*;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -30,14 +29,14 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
         holder = getHolder();
         holder.addCallback(this);
         if (isInEditMode()) return;
-        thread = new TimingDiagramThread(this);
+        thread = new TimingDiagramThread();
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (isInEditMode()) return;
         if (thread == null) {
-            thread = new TimingDiagramThread(this);
+            thread = new TimingDiagramThread();
         }
         thread.setRunning(true);
         thread.start();
@@ -76,10 +75,8 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
     }
 
     private class TimingDiagramThread extends Thread {
-        private static final long UPDATE_PERIOD = 10;
         private boolean running;
 
-        private DiagramOutputView view;
         private int width = 1;
         private int height = 1;
         private Paint paint;
@@ -91,9 +88,8 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
 
         private final Object runLock = new Object();
 
-        public TimingDiagramThread(DiagramOutputView view) {
+        public TimingDiagramThread() {
             super();
-            this.view = view;
 
             float density = getResources().getDisplayMetrics().density;
 
@@ -122,6 +118,8 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
 
         @Override
         public void run() {
+            int priority = android.os.Process.THREAD_PRIORITY_BACKGROUND;
+            android.os.Process.setThreadPriority(priority);
             while (running) {
                 Canvas c = null;
                 try {
@@ -137,13 +135,6 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
                 } finally {
                     if (c != null) {
                         holder.unlockCanvasAndPost(c);
-                    }
-                }
-                if (running) {
-                    try {
-                        Thread.sleep(UPDATE_PERIOD);
-                    } catch (InterruptedException e) {
-                        Log.d("TimingDiagramThread", "interrupted while sleeping");
                     }
                 }
             }
