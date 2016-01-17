@@ -150,6 +150,10 @@ public class MorseCodec {
         }
     }
 
+    public boolean canTranslate(Character c) {
+         return codes.containsKey(c);
+    }
+
     public List<CodePair> getCodePairs() {
         ArrayList<CodePair> pairs = new ArrayList<>();
         for (Map.Entry<Character, MorseElement[]> entry : codes.entrySet()) {

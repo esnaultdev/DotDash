@@ -115,7 +115,7 @@ public class TextInput {
         @Override
         protected Void doInBackground(Void... v) {
             for (int i = 0; i < text.length; i++) {
-                isSpace[i] = text[i] < 'A' || text[i] > 'Z';
+                isSpace[i] = !morseCodec.canTranslate(text[i]);
             }
             for (int i = 0; i < text.length; i++) {
                 if (isCancelled()) {
@@ -176,7 +176,9 @@ public class TextInput {
                 } catch (Exception e) {
                     e.getLocalizedMessage();
                 }
-                listener.onOutputStop();
+                if (currentElement == MorseElement.DOT || currentElement == MorseElement.DASH) {
+                    listener.onOutputStop();
+                }
                 currentElement = elements.poll();
             }
             return null;
