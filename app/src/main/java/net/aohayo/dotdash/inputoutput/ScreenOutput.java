@@ -26,6 +26,11 @@ public class ScreenOutput extends MorseOutput {
     }
 
     @Override
+    public void resume() {
+        screenOff();
+    }
+
+    @Override
     public void start() {
         screenOn();
     }

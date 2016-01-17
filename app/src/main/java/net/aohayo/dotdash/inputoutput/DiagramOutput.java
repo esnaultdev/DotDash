@@ -28,6 +28,11 @@ public class DiagramOutput extends MorseOutput {
     }
 
     @Override
+    public void resume() {
+        container.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void finish() {
         container.setVisibility(View.GONE);
     }
