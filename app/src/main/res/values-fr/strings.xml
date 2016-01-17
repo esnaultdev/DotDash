@@ -51,6 +51,5 @@
     </string-array>
     <string name="pref_title_wpm_gaps">Vitesse des espaces (Mots par minute)</string>
     <string name="pref_title_wpm_reference_word">Mot de référence</string>
-
     <string name="pref_title_tone_frequency">Fréquence de la tonalité (Hz)</string>
 </resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DotDash</string>
+    <string name="code_sheet">Memorando</string>
+    <string name="input">Entrada</string>
+    <string name="input_outputs">Entrada y salidas</string>
+    <string name="input_selection_dialog_title">Elija su entrada</string>
+    <string name="input_selection_fab">Pequeño botón</string>
+    <string name="input_selection_large_button">Gran botón</string>
+    <string name="input_selection_text">Texto</string>
+    <string name="menu_cancel">Cancelar</string>
+    <string name="menu_previous">Previo</string>
+    <string name="menu_select">Elegir</string>
+    <string name="menu_stop">Stop</string>
+    <string name="morse_input_text_hint">Texto para enviar</string>
+    <string name="output_selection_diagram">Diagrama</string>
+    <string name="output_selection_dialog_title">Elija sus salidas</string>
+    <string name="output_selection_screen">Monitor</string>
+    <string name="output_selection_sound">Sonido</string>
+    <string name="output_selection_vibrator">Vibración</string>
+    <string name="outputs">Salidas</string>
+    <string name="pref_about_title">A proposito</string>
+    <string name="pref_description_longer_gaps">Utilizar un espacio más grande entre las palabras</string>
+    <string name="pref_dev_summary">Visite mí sitio web</string>
+    <string name="pref_dev_title">Desarrollador</string>
+    <string name="pref_io_title">Entrada y salidas</string>
+    <string name="pref_morse_title">Morse</string>
+    <string name="pref_source_code_summary">Cambieme sobre Github</string>
+    <string name="pref_source_code_title">Código fuente</string>
+    <string name="title_activity_io">Modo libre</string>
+    <string name="title_activity_settings">Ajustes</string>
+    <string name="pref_title_diagram_speed">Velocidad del diagrama</string>
+    <string-array name="pref_diagram_speed_titles">
+        <item>Muy rápido</item>
+        <item>Rápido</item>
+        <item>Normal</item>
+        <item>Lento</item>
+        <item>Muy lento</item>
+    </string-array>
+    <string name="pref_title_longer_gaps">Espacios más grandes</string>
+    <string name="pref_title_wpm">Velocidad (Palabras por minuto)</string>
+    <string-array name="pref_wpm_titles">
+        <item>30 (Muy rapidó)</item>
+        <item>25</item>
+        <item>20</item>
+        <item>18</item>
+        <item>15</item>
+        <item>13</item>
+        <item>10</item>
+        <item>5 (Muy lento)</item>
+    </string-array>
+    <string name="pref_title_wpm_gaps">Velocidad de los espacios (Palabras por minuto)</string>
+    <string name="pref_title_wpm_reference_word">Palabra de referencia</string>
+    <string name="pref_title_tone_frequency">Frecuencia de la tonalidad</string>
+</resources>
