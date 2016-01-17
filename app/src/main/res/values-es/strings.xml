@@ -17,7 +17,7 @@
     <string name="output_selection_dialog_title">Elija sus salidas</string>
     <string name="output_selection_screen">Monitor</string>
     <string name="output_selection_sound">Sonido</string>
-    <string name="output_selection_vibrator">Vibración</string>
+    <string name="output_selection_vibration">Vibración</string>
     <string name="outputs">Salidas</string>
     <string name="pref_about_title">A proposito</string>
     <string name="pref_description_longer_gaps">Utilizar un espacio más grande entre las palabras</string>

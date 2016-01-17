@@ -50,8 +50,8 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         ioManager.addOutput(MorseOutputs.DIAGRAM, new DiagramOutput(
                 (DiagramOutputView) findViewById(R.id.morse_output_timing_diagram),
                 findViewById(R.id.morse_output_timing_diagram_card)));
-        if (VibratorOutput.isAvailable(this)) {
-            ioManager.addOutput(MorseOutputs.VIBRATOR, new VibratorOutput(this));
+        if (VibrationOutput.isAvailable(this)) {
+            ioManager.addOutput(MorseOutputs.VIBRATION, new VibrationOutput(this));
         }
 
         if (!ioManager.hasInput()) {

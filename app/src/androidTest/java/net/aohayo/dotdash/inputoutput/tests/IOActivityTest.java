@@ -85,7 +85,7 @@ public class IOActivityTest extends ActivityInstrumentationTestCase2<IOActivity>
                 .perform(click());
         onView(withText("Select"))
                 .perform(click());
-        onView(withId(R.id.morse_input_text_card))
+        onView(withId(R.id.morse_input_text_container))
                 .check(matches(isDisplayed()));
     }
 }

@@ -3,11 +3,11 @@ package net.aohayo.dotdash.inputoutput;
 import android.content.Context;
 import android.os.Vibrator;
 
-public class VibratorOutput extends MorseOutput {
+public class VibrationOutput extends MorseOutput {
     private Vibrator vibrator;
     private long[] pattern = {0, 10000, 0};
 
-    public VibratorOutput(Context context) {
+    public VibrationOutput(Context context) {
         this.vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 

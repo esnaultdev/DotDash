@@ -28,7 +28,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
 
     private DialogListener dialogListener;
     private List<MorseOutputs> selectedOutputs;
-    private boolean vibratorAvailable;
+    private boolean vibrationAvailable;
 
     public static OutputSelectionFragment newInstance(List<MorseOutputs> selectedOutputs) {
         OutputSelectionFragment output = new OutputSelectionFragment();
@@ -49,7 +49,7 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
             throw new ClassCastException(activity.toString()
                     + " must implement DialogListener");
         }
-        vibratorAvailable = VibratorOutput.isAvailable(activity);
+        vibrationAvailable = VibrationOutput.isAvailable(activity);
     }
 
     @Override
@@ -60,8 +60,8 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
         } else {
             selectedOutputs = new ArrayList<>();
         }
-        if (!vibratorAvailable) {
-            selectedOutputs.remove(MorseOutputs.VIBRATOR);
+        if (!vibrationAvailable) {
+            selectedOutputs.remove(MorseOutputs.VIBRATION);
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -103,32 +103,32 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                     diagramCB.setChecked(true);
                 }
 
-                if (!vibratorAvailable) {
-                    alertDialog.findViewById(R.id.vibrator_output_layout).setVisibility(View.GONE);
+                if (!vibrationAvailable) {
+                    alertDialog.findViewById(R.id.vibration_output_layout).setVisibility(View.GONE);
                 } else {
-                    CheckBox vibratorCB = (CheckBox) alertDialog.findViewById(R.id.vibrator_output_checkbox);
-                    vibratorCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
-                    if (selectedOutputs.contains(MorseOutputs.VIBRATOR)) {
-                        vibratorCB.setChecked(true);
+                    CheckBox vibrationCB = (CheckBox) alertDialog.findViewById(R.id.vibration_output_checkbox);
+                    vibrationCB.setOnCheckedChangeListener(OutputSelectionFragment.this);
+                    if (selectedOutputs.contains(MorseOutputs.VIBRATION)) {
+                        vibrationCB.setChecked(true);
                     }
                 }
 
                 RelativeLayout soundOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.sound_output_layout);
                 RelativeLayout screenOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.screen_output_layout);
-                RelativeLayout vibratorOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.vibrator_output_layout);
+                RelativeLayout vibrationOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.vibration_output_layout);
                 RelativeLayout diagramOutputLayout = (RelativeLayout) alertDialog.findViewById(R.id.diagram_output_layout);
                 soundOutputLayout.setOnClickListener(OutputSelectionFragment.this);
                 screenOutputLayout.setOnClickListener(OutputSelectionFragment.this);
-                vibratorOutputLayout.setOnClickListener(OutputSelectionFragment.this);
+                vibrationOutputLayout.setOnClickListener(OutputSelectionFragment.this);
                 diagramOutputLayout.setOnClickListener(OutputSelectionFragment.this);
 
                 View soundOutputFAB = alertDialog.findViewById(R.id.sound_output_fab);
                 View screenOutputFAB = alertDialog.findViewById(R.id.screen_output_fab);
-                View vibratorOutputFAB = alertDialog.findViewById(R.id.vibrator_output_fab);
+                View vibrationOutputFAB = alertDialog.findViewById(R.id.vibration_output_fab);
                 View diagramOutputFAB = alertDialog.findViewById(R.id.diagram_output_fab);
                 soundOutputFAB.setOnClickListener(OutputSelectionFragment.this);
                 screenOutputFAB.setOnClickListener(OutputSelectionFragment.this);
-                vibratorOutputFAB.setOnClickListener(OutputSelectionFragment.this);
+                vibrationOutputFAB.setOnClickListener(OutputSelectionFragment.this);
                 diagramOutputFAB.setOnClickListener(OutputSelectionFragment.this);
             }
         });
@@ -149,8 +149,8 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
             case R.id.screen_output_checkbox:
                 output = MorseOutputs.SCREEN;
                 break;
-            case R.id.vibrator_output_checkbox:
-                output = MorseOutputs.VIBRATOR;
+            case R.id.vibration_output_checkbox:
+                output = MorseOutputs.VIBRATION;
                 break;
             case R.id.diagram_output_checkbox:
                 output = MorseOutputs.DIAGRAM;
@@ -187,9 +187,9 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
             case R.id.screen_output_fab:
                 checkBox = (CheckBox) getDialog().findViewById(R.id.screen_output_checkbox);
                 break;
-            case R.id.vibrator_output_layout:
-            case R.id.vibrator_output_fab:
-                checkBox = (CheckBox) getDialog().findViewById(R.id.vibrator_output_checkbox);
+            case R.id.vibration_output_layout:
+            case R.id.vibration_output_fab:
+                checkBox = (CheckBox) getDialog().findViewById(R.id.vibration_output_checkbox);
                 break;
             case R.id.diagram_output_layout:
             case R.id.diagram_output_fab:
@@ -214,8 +214,8 @@ public class OutputSelectionFragment extends DialogFragment implements CompoundB
                 outputs.add(output);
             }
         }
-        if (!vibratorAvailable) {
-            outputs.remove(MorseOutputs.VIBRATOR);
+        if (!vibrationAvailable) {
+            outputs.remove(MorseOutputs.VIBRATION);
         }
         return outputs;
     }
