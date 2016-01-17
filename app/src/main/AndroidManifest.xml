@@ -3,6 +3,7 @@
     package="net.aohayo.dotdash">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -27,7 +28,8 @@
             android:label="@string/title_activity_settings"
             android:parentActivityName="net.aohayo.dotdash.main.MainActivity" />
 
-
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="${crashlyticsApiKey}" />
     </application>
-
 </manifest>
