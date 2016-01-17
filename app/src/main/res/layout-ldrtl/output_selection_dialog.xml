@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/outputSelection"
+    android:paddingTop="@dimen/dialog_padding"
+    android:paddingLeft="@dimen/dialog_padding"
+    android:paddingRight="@dimen/dialog_padding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/output_selection_dialog_title"
+        android:textSize="@dimen/dialog_title_text_size"
+        android:textColor="@android:color/black"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dialog_title_body_padding">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sound_output_layout"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/sound_output_fab"
+                    android:src="@mipmap/ic_volume_up_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/output_selection_sound"
+                    android:textSize="@dimen/single_line_item_font_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/single_line_item_text_left_padding" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sound_output_checkbox"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/single_line_item_icon_horizontal_padding"
+                    android:layout_marginRight="@dimen/single_line_item_icon_horizontal_padding"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/screen_output_layout"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/screen_output_fab"
+                    android:src="@mipmap/ic_smartphone_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/output_selection_screen"
+                    android:textSize="@dimen/single_line_item_font_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/single_line_item_text_left_padding" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/screen_output_checkbox"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/single_line_item_icon_horizontal_padding"
+                    android:layout_marginRight="@dimen/single_line_item_icon_horizontal_padding" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/vibrator_output_layout"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/vibrator_output_fab"
+                    android:src="@mipmap/ic_vibration_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/output_selection_vibrator"
+                    android:textSize="@dimen/single_line_item_font_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/single_line_item_text_left_padding" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/vibrator_output_checkbox"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/single_line_item_icon_horizontal_padding"
+                    android:layout_marginRight="@dimen/single_line_item_icon_horizontal_padding"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/diagram_output_layout"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/diagram_output_fab"
+                    android:src="@mipmap/ic_morse_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/output_selection_diagram"
+                    android:textSize="@dimen/single_line_item_font_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/single_line_item_text_left_padding" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/diagram_output_checkbox"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/single_line_item_icon_horizontal_padding"
+                    android:layout_marginRight="@dimen/single_line_item_icon_horizontal_padding"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

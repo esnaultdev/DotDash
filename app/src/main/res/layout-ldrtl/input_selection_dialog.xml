@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/inputSelection"
+    android:paddingTop="@dimen/dialog_padding"
+    android:paddingLeft="@dimen/dialog_padding"
+    android:paddingRight="@dimen/dialog_padding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/input_selection_dialog_title"
+        android:textSize="@dimen/dialog_title_text_size"
+        android:textColor="@android:color/black"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dialog_title_body_padding">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fab_input_layout"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/fab_input_fab"
+                    android:src="@mipmap/ic_smartphone_fab_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/input_selection_fab"
+                    android:textSize="@dimen/single_line_item_font_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/single_line_item_text_left_padding"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/large_button_input_layout"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/large_button_input_fab"
+                    android:src="@mipmap/ic_smartphone_large_button_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/input_selection_large_button"
+                    android:textSize="@dimen/single_line_item_font_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/single_line_item_text_left_padding"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_input_layout"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="@dimen/mini_fab_size"
+                    android:layout_height="@dimen/mini_fab_size"
+                    android:id="@+id/text_input_fab"
+                    android:src="@mipmap/ic_alphabetical_white_24dp"
+                    app:elevation="0dp"
+                    android:layout_gravity="center"
+                    android:scaleType="center"
+                    android:layout_margin="@dimen/mini_fab_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/input_selection_text"
+                    android:textSize="@dimen/single_line_item_font_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/single_line_item_text_left_padding"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

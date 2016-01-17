@@ -9,7 +9,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="inputoutput.IOActivity"
     android:orientation="vertical">
-    <!-- tools:showIn="@layout/activity_io" -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -63,56 +62,5 @@
         android:layout_height="1dp"
         android:background="@color/itemSeparator" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/morse_input_text_container"
-        android:visibility="visible"
-        android:background="@android:color/white"
-        android:onClick="onFocusTextInput">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_input_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:inputType="textShortMessage|textMultiLine"
-            android:maxLines="4"
-            android:maxLength="1000"
-            android:scrollbars="vertical"
-            android:background="@android:color/transparent"
-            android:hint="@string/morse_input_text_hint"
-            android:id="@+id/morse_input_text"
-            android:imeOptions="actionSend" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="right">
-
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="@dimen/mini_fab_size"
-                android:layout_height="@dimen/mini_fab_size"
-                android:id="@+id/morse_input_text_send_button"
-                android:src="@mipmap/ic_send_white_24dp"
-                app:elevation="2dp"
-                android:layout_gravity="center"
-                android:scaleType="center"
-                android:layout_margin="@dimen/mini_fab_margin"/>
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="@dimen/mini_fab_size"
-                android:layout_height="@dimen/mini_fab_size"
-                android:src="@mipmap/ic_stop_white_24dp"
-                app:elevation="2dp"
-                app:backgroundTint="@color/colorCancel"
-                android:layout_gravity="center"
-                android:scaleType="center"
-                android:layout_margin="@dimen/mini_fab_margin"
-                android:onClick="onStopTextInput"/>
-
-        </LinearLayout>
-    </LinearLayout>
+    <include layout="@layout/text_input" />
 </LinearLayout>
