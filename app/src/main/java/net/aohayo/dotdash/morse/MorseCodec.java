@@ -23,7 +23,7 @@ import java.util.Map;
 public class MorseCodec {
     private EnumMap<MorseElement, Integer> durations; // in milliseconds
     private EnumMap<MorseElement, Integer> rDurations; // relative durations
-    private HashMap<Character, MorseElement[]> codes;
+    private HashMap<Character, CodePair> codes;
     private Context context;
     private boolean isInit = false;
 
@@ -63,6 +63,7 @@ public class MorseCodec {
         boolean inCode = false;
         Character character = '\0';
         MorseElement element = MorseElement.DOT;
+        CodeType type = CodeType.PUNCTUATION;
         try {
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -92,6 +93,7 @@ public class MorseCodec {
                     } else if (parser.getName().equals("code")) {
                         inCode = true;
                         character = parser.getAttributeValue(null, "character").charAt(0);
+                        type = CodeType.fromString(parser.getAttributeValue(null, "type"));
                     }
                 } else if (eventType == XmlPullParser.END_TAG) {
                     if (parser.getName().equals("duration")) {
@@ -105,7 +107,8 @@ public class MorseCodec {
                         if (inDuration) {
                             rDurations.put(element, Integer.parseInt(text));
                         } else if (inCode) {
-                            codes.put(character, getElements(text));
+                            CodePair pair = new CodePair(character, getElements(text), type);
+                            codes.put(character, pair);
                         }
                     }
                 }
@@ -146,7 +149,7 @@ public class MorseCodec {
         if (!codes.containsKey(c)) {
             return new MorseElement[0];
         } else {
-            return codes.get(c);
+            return codes.get(c).getCode();
         }
     }
 
@@ -156,8 +159,8 @@ public class MorseCodec {
 
     public List<CodePair> getCodePairs() {
         ArrayList<CodePair> pairs = new ArrayList<>();
-        for (Map.Entry<Character, MorseElement[]> entry : codes.entrySet()) {
-            pairs.add(new CodePair(entry.getKey(), entry.getValue()));
+        for (Map.Entry<Character, CodePair> entry : codes.entrySet()) {
+            pairs.add(entry.getValue());
         }
         Collections.sort(pairs, new CodePair.CodePairComparator());
         return pairs;

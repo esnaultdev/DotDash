@@ -8,41 +8,61 @@
         <duration element="medium_gap">7</duration>
     </durations>
     <codes>
-        <code character="A">.-</code>
-        <code character="B">-...</code>
-        <code character="C">-.-.</code>
-        <code character="D">-..</code>
-        <code character="E">.</code>
-        <code character="F">..-.</code>
-        <code character="G">--.</code>
-        <code character="H">....</code>
-        <code character="I">..</code>
-        <code character="J">.---</code>
-        <code character="K">-.-</code>
-        <code character="L">.-..</code>
-        <code character="M">--</code>
-        <code character="N">-.</code>
-        <code character="O">---</code>
-        <code character="P">.--.</code>
-        <code character="Q">--.-</code>
-        <code character="R">.-.</code>
-        <code character="S">...</code>
-        <code character="T">-</code>
-        <code character="U">..-</code>
-        <code character="V">...-</code>
-        <code character="W">.--</code>
-        <code character="X">-..-</code>
-        <code character="Y">-.--</code>
-        <code character="Z">--..</code>
-        <code character="1">.----</code>
-        <code character="2">..---</code>
-        <code character="3">...--</code>
-        <code character="4">....-</code>
-        <code character="5">.....</code>
-        <code character="6">-....</code>
-        <code character="7">--...</code>
-        <code character="8">---..</code>
-        <code character="9">----.</code>
-        <code character="0">-----</code>
+        <code character="A" type="letter">.-</code>
+        <code character="B" type="letter">-...</code>
+        <code character="C" type="letter">-.-.</code>
+        <code character="D" type="letter">-..</code>
+        <code character="E" type="letter">.</code>
+        <code character="F" type="letter">..-.</code>
+        <code character="G" type="letter">--.</code>
+        <code character="H" type="letter">....</code>
+        <code character="I" type="letter">..</code>
+        <code character="J" type="letter">.---</code>
+        <code character="K" type="letter">-.-</code>
+        <code character="L" type="letter">.-..</code>
+        <code character="M" type="letter">--</code>
+        <code character="N" type="letter">-.</code>
+        <code character="O" type="letter">---</code>
+        <code character="P" type="letter">.--.</code>
+        <code character="Q" type="letter">--.-</code>
+        <code character="R" type="letter">.-.</code>
+        <code character="S" type="letter">...</code>
+        <code character="T" type="letter">-</code>
+        <code character="U" type="letter">..-</code>
+        <code character="V" type="letter">...-</code>
+        <code character="W" type="letter">.--</code>
+        <code character="X" type="letter">-..-</code>
+        <code character="Y" type="letter">-.--</code>
+        <code character="Z" type="letter">--..</code>
+
+        <code character="1" type="number">.----</code>
+        <code character="2" type="number">..---</code>
+        <code character="3" type="number">...--</code>
+        <code character="4" type="number">....-</code>
+        <code character="5" type="number">.....</code>
+        <code character="6" type="number">-....</code>
+        <code character="7" type="number">--...</code>
+        <code character="8" type="number">---..</code>
+        <code character="9" type="number">----.</code>
+        <code character="0" type="number">-----</code>
+
+        <code character="." type="punctuation">.-.-.-</code>
+        <code character="," type="punctuation">--..--</code>
+        <code character="'" type="punctuation">.----.</code>
+        <code character="!" type="punctuation">-.-.--</code>
+        <code character="/" type="punctuation">-..-.</code>
+        <code character="(" type="punctuation">-.--.</code>
+        <code character=")" type="punctuation">-.--.-</code>
+        <code character=":" type="punctuation">---...</code>
+        <code character=";" type="punctuation">-.-.-.</code>
+        <code character="=" type="punctuation">-...-</code>
+        <code character="+" type="punctuation">.-.-.</code>
+        <code character="-" type="punctuation">-....-</code>
+        <code character="_" type="punctuation">..--.-</code>
+        <code character="$" type="punctuation">...-..-</code>
+        <code character="\?" type="punctuation">..--..</code>
+        <code character="\@" type="punctuation">.--.-.</code>
+        <code character="&amp;" type="punctuation">.-...</code>
+        <code character="&quot;" type="punctuation">.-..-.</code>
     </codes>
 </morse_code>
