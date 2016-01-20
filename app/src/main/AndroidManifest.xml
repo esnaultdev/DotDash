@@ -22,6 +22,7 @@
             android:name=".inputoutput.IOActivity"
             android:label="@string/title_activity_io"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".main.SettingsActivity"
