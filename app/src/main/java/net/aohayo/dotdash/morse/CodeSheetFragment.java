@@ -1,6 +1,5 @@
 package net.aohayo.dotdash.morse;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,13 +21,20 @@ public class CodeSheetFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.code_sheet, container);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("Test Code Sheet");
+        toolbar.setTitle(getActivity().getResources().getString(R.string.code_sheet));
         toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setNavigationIcon(getActivity().getResources().getDrawable(R.mipmap.ic_close_white_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("ALetters"));
-        tabLayout.addTab(tabLayout.newTab().setText("ANumbers"));
-        tabLayout.addTab(tabLayout.newTab().setText("APunct."));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.code_sheet_letters)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.code_sheet_numbers)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.code_sheet_punctuation)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
 
@@ -54,5 +61,16 @@ public class CodeSheetFragment extends DialogFragment {
         });
 
         return view;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                dismiss();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

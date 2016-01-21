@@ -22,7 +22,13 @@
     <string name="input_selection_large_button">Large button</string>
     <string name="input_selection_text">Text</string>
     <string name="morse_input_text_hint">Text to send</string>
+
+    <!-- String related to the code sheet -->
+
     <string name="code_sheet">Code sheet</string>
+    <string name="code_sheet_letters">A - Z</string>
+    <string name="code_sheet_numbers">0 - 9</string>
+    <string name="code_sheet_punctuation">...</string>
 
     <!-- Strings related to Settings -->
 
