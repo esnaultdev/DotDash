@@ -12,8 +12,8 @@ import net.aohayo.dotdash.R;
 public class CodeSheetAdapter extends ArrayAdapter<CodePair> {
     private final Context context;
 
-    public CodeSheetAdapter(Context context, MorseCodec codec) {
-        super(context, 0, codec.getCodePairs());
+    public CodeSheetAdapter(Context context, MorseCodec codec, CodeType type) {
+        super(context, 0, codec.getCodePairs(type));
         this.context = context;
     }
 

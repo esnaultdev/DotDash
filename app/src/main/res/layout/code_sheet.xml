@@ -1,47 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dialog_padding"
-        android:paddingBottom="@dimen/dialog_padding"
-        android:paddingLeft="@dimen/dialog_padding"
-        android:paddingRight="@dimen/dialog_padding">
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/code_sheet"
-            android:textSize="@dimen/dialog_title_text_size"
-            android:textColor="@android:color/black"/>
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:id="@+id/image_view_close"
-            android:src="@mipmap/ic_close_black_36dp"
-            android:alpha="0.54"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackgroundBorderless" />
-
-    </RelativeLayout>
-
-    <View
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/itemSeparator" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"/>
 
-    <GridView
-        android:id="@+id/code_list"
-        android:layout_height="match_parent"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:numColumns="@integer/code_sheet_column_nb"
-        android:verticalSpacing="@dimen/grid_list_item_margin"
-        android:horizontalSpacing="@dimen/grid_list_item_margin" />
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tab_layout"/>
 
-</LinearLayout>
+</RelativeLayout>

@@ -157,10 +157,12 @@ public class MorseCodec {
          return codes.containsKey(c);
     }
 
-    public List<CodePair> getCodePairs() {
+    public List<CodePair> getCodePairs(CodeType type) {
         ArrayList<CodePair> pairs = new ArrayList<>();
         for (Map.Entry<Character, CodePair> entry : codes.entrySet()) {
-            pairs.add(entry.getValue());
+            if( type == null || entry.getValue().getType() == type) {
+                pairs.add(entry.getValue());
+            }
         }
         Collections.sort(pairs, new CodePair.CodePairComparator());
         return pairs;

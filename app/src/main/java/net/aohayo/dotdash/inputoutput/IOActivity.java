@@ -175,7 +175,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
 
     private void showCodeSheetDialog() {
         CodeSheetFragment codeSheet = new CodeSheetFragment();
-        codeSheet.show(getFragmentManager(), CODE_SHEET_FRAGMENT_ID);
+        codeSheet.show(getSupportFragmentManager(), CODE_SHEET_FRAGMENT_ID);
     }
 
     public void onStopTextInput(View view) {
