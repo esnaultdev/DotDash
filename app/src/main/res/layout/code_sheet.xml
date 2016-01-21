@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
+        android:elevation="6dp"
         android:minHeight="?attr/actionBarSize" />
 
     <android.support.design.widget.TabLayout

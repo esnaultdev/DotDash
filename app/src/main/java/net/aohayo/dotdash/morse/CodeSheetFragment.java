@@ -7,9 +7,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import net.aohayo.dotdash.R;
 
@@ -19,6 +19,7 @@ public class CodeSheetFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.code_sheet, container);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         toolbar.setTitle(getActivity().getResources().getString(R.string.code_sheet));
@@ -61,16 +62,5 @@ public class CodeSheetFragment extends DialogFragment {
         });
 
         return view;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                dismiss();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

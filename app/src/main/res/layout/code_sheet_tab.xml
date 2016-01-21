@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Tab"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <GridView
+        android:id="@+id/code_list"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:numColumns="@integer/code_sheet_column_nb"
+        android:verticalSpacing="@dimen/grid_list_item_margin"
+        android:horizontalSpacing="@dimen/grid_list_item_margin" />
 </RelativeLayout>

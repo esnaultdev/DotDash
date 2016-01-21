@@ -10,19 +10,36 @@ import android.widget.GridView;
 import net.aohayo.dotdash.R;
 
 public class CodeSheetTabFragment extends Fragment {
+    private static final String CODE_TYPE = "";
+
+    public static CodeSheetTabFragment newInstance(CodeType type) {
+        CodeSheetTabFragment fragment = new CodeSheetTabFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(CODE_TYPE, type);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.code_sheet_tab, container, false);
+        View view = inflater.inflate(R.layout.code_sheet_tab, container, false);
 
-        /*
-        MorseCodec codec = MorseCodec.getInstance();
-        if (!codec.isInit()) {
-            codec.init(context, R.xml.morse_code_itu);
+        CodeType type = (CodeType) getArguments().getSerializable(CODE_TYPE);
+        if (type == null) {
+            type = CodeType.LETTER;
         }
 
-        GridView listViewPunc = (GridView) alertDialog.findViewById(R.id.code_list_punctuation);
-        CodeSheetAdapter adapterPunc = new CodeSheetAdapter(context, codec, CodeType.PUNCTUATION);
-        listViewPunc.setAdapter(adapterPunc);
-        */
+        MorseCodec codec = MorseCodec.getInstance();
+        if (!codec.isInit()) {
+            codec.init(getActivity(), R.xml.morse_code_itu);
+        }
+
+        GridView listView = (GridView) view.findViewById(R.id.code_list);
+        CodeSheetAdapter adapter = new CodeSheetAdapter(getActivity(), codec, type);
+        listView.setAdapter(adapter);
+
+        return view;
     }
 }

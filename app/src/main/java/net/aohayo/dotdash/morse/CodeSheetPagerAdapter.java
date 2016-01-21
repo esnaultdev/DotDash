@@ -13,22 +13,16 @@ public class CodeSheetPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new CodeSheetTabFragment();
-        /*
         switch (position) {
             case 0:
-                CodeSheetTabFragment tab1 = new CodeSheetTabFragment();
-                return tab1;
+                return CodeSheetTabFragment.newInstance(CodeType.LETTER);
             case 1:
-                CodeSheetTabFragment tab2 = new CodeSheetTabFragment();
-                return tab2;
+                return CodeSheetTabFragment.newInstance(CodeType.NUMBER);
             case 2:
-                CodeSheetTabFragment tab3 = new CodeSheetTabFragment();
-                return tab3;
+                return CodeSheetTabFragment.newInstance(CodeType.PUNCTUATION);
             default:
                 return null;
         }
-        */
     }
 
     @Override

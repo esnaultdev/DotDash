@@ -28,15 +28,7 @@ public class CodePair {
     public static class CodePairComparator implements Comparator<CodePair> {
         @Override
         public int compare(CodePair lhs, CodePair rhs) {
-            boolean isDigitLhs = Character.isDigit(lhs.getCharacter());
-            boolean isDigitRhs = Character.isDigit(rhs.getCharacter());
-            if (isDigitLhs && !isDigitRhs) {
-                return 1;
-            } else if (!isDigitLhs && isDigitRhs) {
-                return -1;
-            } else {
-                return lhs.getCharacter().compareTo(rhs.getCharacter());
-            }
+            return lhs.getCharacter().compareTo(rhs.getCharacter());
         }
     }
 }
