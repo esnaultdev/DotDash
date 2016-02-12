@@ -93,8 +93,15 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
 
             float density = getResources().getDisplayMetrics().density;
 
+            int paintColor;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                paintColor = context.getResources().getColor(R.color.colorPrimaryDark, context.getTheme());
+            } else {
+                paintColor = context.getResources().getColor(R.color.colorPrimaryDark);
+            }
+
             paint = new Paint();
-            paint.setColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            paint.setColor(paintColor);
             paint.setStrokeWidth(4.0f * density);
             paint.setStrokeCap(Paint.Cap.BUTT);
             paint.setStyle(Paint.Style.STROKE);
@@ -164,7 +171,7 @@ public class DiagramOutputView extends SurfaceView implements SurfaceHolder.Call
         }
 
         private void doDraw(Canvas canvas) {
-            canvas.drawColor(Color.WHITE); // Titanium HWITE
+            canvas.drawColor(Color.WHITE);
             canvas.drawPath(path, paint);
         }
 

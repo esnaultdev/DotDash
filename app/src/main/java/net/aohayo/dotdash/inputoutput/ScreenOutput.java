@@ -1,18 +1,28 @@
 package net.aohayo.dotdash.inputoutput;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.CountDownTimer;
+import android.os.Build;
 import android.view.View;
 
 import net.aohayo.dotdash.R;
 
 public class ScreenOutput extends MorseOutput {
-    View outputView;
-    Context context;
+    private View outputView;
+    private int colorOn;
+    private int colorOff;
 
+    @SuppressLint("NewApi")
     public ScreenOutput(Context context, View view) {
-        this.context = context;
         outputView = view;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            colorOn = context.getResources().getColor(R.color.screenOutputOn, context.getTheme());
+            colorOff = context.getResources().getColor(R.color.screenOutputOff, context.getTheme());
+        } else {
+            colorOn = context.getResources().getColor(R.color.screenOutputOn);
+            colorOff = context.getResources().getColor(R.color.screenOutputOff);
+        }
     }
 
     @Override
@@ -44,7 +54,7 @@ public class ScreenOutput extends MorseOutput {
         outputView.post(new Runnable() {
             @Override
             public void run() {
-                outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOn));
+                outputView.setBackgroundColor(colorOn);
             }
         });
     }
@@ -53,7 +63,7 @@ public class ScreenOutput extends MorseOutput {
         outputView.post(new Runnable() {
             @Override
             public void run() {
-                outputView.setBackgroundColor(context.getResources().getColor(R.color.screenOutputOff));
+                outputView.setBackgroundColor(colorOff);
             }
         });
     }

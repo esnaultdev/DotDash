@@ -143,13 +143,13 @@ public class IOManager implements TextInput.InputListener {
         if (newInputView != null) {
             newInputView.setVisibility(View.VISIBLE);
         }
-        if (this.input == MorseInput.TEXT) {
+        if (oldInputView != null && this.input == MorseInput.TEXT) {
             textInput.cancel();
             textInput.clear();
             EditText editText = (EditText) oldInputView.findViewById(R.id.morse_input_text);
             InputMethodManager imm;
             imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);;
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
         }
 
         this.input = input;

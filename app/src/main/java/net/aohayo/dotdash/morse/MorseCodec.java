@@ -24,7 +24,6 @@ public class MorseCodec {
     private EnumMap<MorseElement, Integer> durations; // in milliseconds
     private EnumMap<MorseElement, Integer> rDurations; // relative durations
     private HashMap<Character, CodePair> codes;
-    private Context context;
     private boolean isInit = false;
 
     // Private constructor to prevent instanciation from other classes.
@@ -43,7 +42,6 @@ public class MorseCodec {
         codes = new HashMap<>();
         durations = new EnumMap<>(MorseElement.class);
         rDurations = new EnumMap<>(MorseElement.class);
-        this.context = context;
 
         parseXML(context, codeId);
         computeDurations(context);
@@ -53,7 +51,7 @@ public class MorseCodec {
         return isInit;
     }
 
-    public void refreshDurations() {
+    public void refreshDurations(Context context) {
         computeDurations(context);
     }
 

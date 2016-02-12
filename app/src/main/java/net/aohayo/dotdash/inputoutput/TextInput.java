@@ -29,12 +29,14 @@ public class TextInput {
     private Queue<MorseElement> elements;
     private TranslationTask trTask;
     private SendTask sendTask;
+    private Context context;
 
     public TextInput(Context context, InputListener listener) {
         this(context, listener, null);
     }
 
     public TextInput(Context context, InputListener listener, Bundle savedInstanceState) {
+        this.context = context;
         this.listener = listener;
         morseCodec = MorseCodec.getInstance();
         if (!morseCodec.isInit()) {
@@ -96,7 +98,7 @@ public class TextInput {
         if (sendTask != null) {
             sendTask.resume();
         }
-        morseCodec.refreshDurations();
+        morseCodec.refreshDurations(context);
     }
 
     private class TranslationTask extends AsyncTask<Void, Void, Void> {

@@ -7,8 +7,8 @@ import android.media.AudioTrack;
 public class ToneGenerator {
     // Code inspired by http://stackoverflow.com/a/3731075
 
-    private final int duration = 3; // seconds
-    private final int sampleRate = 8000;
+    private static final int duration = 3; // seconds
+    private static final int sampleRate = 8000;
     private int numSamples;
     private byte generatedSnd[];
     private byte silenceSnd[];
