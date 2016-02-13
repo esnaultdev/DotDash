@@ -40,7 +40,7 @@ public class TextInput {
         this.listener = listener;
         morseCodec = MorseCodec.getInstance();
         if (!morseCodec.isInit()) {
-            morseCodec.init(context, R.xml.morse_code_itu);
+            morseCodec.init(context);
         }
         texts = new LinkedList<>();
         elements = new LinkedList<>();

@@ -33,7 +33,7 @@ public class CodeSheetTabFragment extends Fragment {
 
         MorseCodec codec = MorseCodec.getInstance();
         if (!codec.isInit()) {
-            codec.init(getActivity(), R.xml.morse_code_itu);
+            codec.init(getActivity());
         }
 
         GridView listView = (GridView) view.findViewById(R.id.code_list);

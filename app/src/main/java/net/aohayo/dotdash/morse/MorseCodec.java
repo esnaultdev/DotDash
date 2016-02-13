@@ -2,17 +2,11 @@ package net.aohayo.dotdash.morse;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.XmlResourceParser;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import net.aohayo.dotdash.R;
 import net.aohayo.dotdash.main.SettingsActivity;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -22,7 +16,7 @@ import java.util.Map;
 
 public class MorseCodec {
     private EnumMap<MorseElement, Integer> durations; // in milliseconds
-    private EnumMap<MorseElement, Integer> rDurations; // relative durations
+    private EnumMap<MorseElement, Integer> rDurations; // relative durations from xml
     private HashMap<Character, CodePair> codes;
     private boolean isInit = false;
 
@@ -37,13 +31,15 @@ public class MorseCodec {
         return MorseCodecSingletonHolder.INSTANCE;
     }
 
-    public void init(Context context, int codeId) {
+    public void init(Context context) {
         isInit = true;
-        codes = new HashMap<>();
         durations = new EnumMap<>(MorseElement.class);
-        rDurations = new EnumMap<>(MorseElement.class);
 
-        parseXML(context, codeId);
+        MorseCodeParser parser = new MorseCodeParser();
+        int codeId = R.xml.morse_code_itu; // TODO: use a shared preference
+        parser.parse(context, codeId);
+        codes = parser.getCodes();
+        rDurations = parser.getDurations();
         computeDurations(context);
     }
 
@@ -55,71 +51,7 @@ public class MorseCodec {
         computeDurations(context);
     }
 
-    public void parseXML(Context context, int codeId) {
-        XmlResourceParser parser = context.getResources().getXml(codeId);
-        boolean inDuration = false;
-        boolean inCode = false;
-        Character character = '\0';
-        MorseElement element = MorseElement.DOT;
-        CodeType type = CodeType.PUNCTUATION;
-        try {
-            int eventType = parser.getEventType();
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                if (eventType == XmlPullParser.START_TAG) {
-                    if (parser.getName().equals("duration")) {
-                        inDuration = true;
-                        String elementName = parser.getAttributeValue(null, "element");
-                        switch (elementName) {
-                            case "dot":
-                                element = MorseElement.DOT;
-                                break;
-                            case "dash":
-                                element = MorseElement.DASH;
-                                break;
-                            case "tiny_gap":
-                                element = MorseElement.TINY_GAP;
-                                break;
-                            case "short_gap":
-                                element = MorseElement.SHORT_GAP;
-                                break;
-                            case "medium_gap":
-                                element = MorseElement.MEDIUM_GAP;
-                                break;
-                            default:
-                                throw new XmlPullParserException("Unknown element: " + elementName);
-                        }
-                    } else if (parser.getName().equals("code")) {
-                        inCode = true;
-                        character = parser.getAttributeValue(null, "character").charAt(0);
-                        type = CodeType.fromString(parser.getAttributeValue(null, "type"));
-                    }
-                } else if (eventType == XmlPullParser.END_TAG) {
-                    if (parser.getName().equals("duration")) {
-                        inDuration = false;
-                    } else if (parser.getName().equals("code")) {
-                        inCode = false;
-                    }
-                } else if (eventType == XmlPullParser.TEXT) {
-                    String text = parser.getText();
-                    if (text != null) {
-                        if (inDuration) {
-                            rDurations.put(element, Integer.parseInt(text));
-                        } else if (inCode) {
-                            CodePair pair = new CodePair(character, getElements(text), type);
-                            codes.put(character, pair);
-                        }
-                    }
-                }
-                eventType = parser.next();
-            }
-        } catch (XmlPullParserException e) {
-            Log.e("MorseCodec", "Corrupted xml file (Bad event)");
-        } catch (IOException e) {
-            Log.e("MorseCodec", "Corrupted xml file (Could not read)");
-        }
-    }
-
-    private MorseElement[] getElements(String dotsAndDashes) {
+    public static MorseElement[] getElementsFromString(String dotsAndDashes) {
         MorseElement[] result = new MorseElement[2*dotsAndDashes.length() - 1];
         for (int i = 0; i < dotsAndDashes.length(); i++) {
             char current = dotsAndDashes.charAt(i);
