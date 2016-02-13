@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
+
 import io.fabric.sdk.android.Fabric;
+
+import net.aohayo.dotdash.BuildConfig;
 import net.aohayo.dotdash.R;
 
 import net.aohayo.dotdash.inputoutput.IOActivity;
@@ -16,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
+        Fabric.with(this, new Crashlytics.Builder().core(core).build());
         setContentView(R.layout.activity_main);
     }
 
