@@ -106,10 +106,10 @@
 
     <string name="pref_title_tone_frequency">Tone frequency (Hz)</string>
     <string-array name="pref_tone_frequency_titles_values" translatable="false">
-        <item>800</item>
+        <item>840</item>
         <item>700</item>
         <item>600</item>
-        <item>500</item>
+        <item>525</item>
         <item>400</item>
     </string-array>
     <string name="pref_tone_frequency_default" translatable="false">600</string>
