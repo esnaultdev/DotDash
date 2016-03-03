@@ -95,6 +95,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         bindPreferenceSummaryToValue(findPreference(KEY_PREF_WPM_GAPS));
         bindPreferenceSummaryToValue(findPreference(KEY_PREF_DIAGRAM_SPEED));
         bindPreferenceSummaryToValue(findPreference(KEY_PREF_TONE_FREQUENCY));
+
+        TransitionHelper.setEnterWindowAnimations(this, R.transition.slide_end);
     }
 
     /**

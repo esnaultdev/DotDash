@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="code_sheet_column_nb">2</integer>
+
+    <integer name="transition_duration_short">100</integer>
+    <integer name="transition_duration_medium">300</integer>
+    <integer name="transition_duration_long">500</integer>
 </resources>

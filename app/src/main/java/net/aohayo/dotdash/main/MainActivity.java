@@ -22,16 +22,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
         Fabric.with(this, new Crashlytics.Builder().core(core).build());
+
         setContentView(R.layout.activity_main);
+        TransitionHelper.setExitWindowAnimations(this, R.transition.slide_start);
     }
 
     public void startIOActivity(View view) {
         Intent intent = new Intent(this, IOActivity.class);
-        startActivity(intent);
+        TransitionHelper.startActivityTransition(this, intent);
     }
 
     public void startSettingsActivity(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
+        TransitionHelper.startActivityTransition(this, intent);
     }
 }

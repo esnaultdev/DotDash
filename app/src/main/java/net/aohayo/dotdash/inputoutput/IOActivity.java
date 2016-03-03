@@ -13,10 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import net.aohayo.dotdash.R;
 import net.aohayo.dotdash.main.SettingsActivity;
+import net.aohayo.dotdash.main.TransitionHelper;
 import net.aohayo.dotdash.morse.CodeSheetFragment;
 
 import java.util.List;
@@ -35,6 +35,8 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
         setContentView(R.layout.activity_io);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        TransitionHelper.setEnterWindowAnimations(this, R.transition.slide_end);
+        TransitionHelper.setExitWindowAnimations(this, R.transition.slide_start);
 
         if (savedInstanceState != null) {
             Bundle managerState = savedInstanceState.getBundle(STATE_IO_MANAGER);
@@ -85,7 +87,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
                 return true;
             case R.id.settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                TransitionHelper.startActivityTransition(this, intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -128,7 +130,7 @@ public class IOActivity extends AppCompatActivity implements OutputSelectionFrag
     @Override
     public void onInputDialogCancelClick(DialogFragment dialog) {
         if (!ioManager.hasInput()) {
-            finish();
+            onBackPressed();
         }
     }
 

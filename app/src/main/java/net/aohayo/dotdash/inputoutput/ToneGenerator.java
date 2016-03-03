@@ -9,7 +9,7 @@ public class ToneGenerator {
     // Code inspired by http://stackoverflow.com/a/3731075
 
     private static final int SAMPLE_RATE = 8400;
-    private static final int NB_FADE_PERIODS = 4;
+    private static final int NB_FADE_PERIODS = 8;
     private static final int NB_NORMAL_PERIODS = 4; // > 1 because of the loop implementation of the AudioTrack
 
     private int numSamples;
