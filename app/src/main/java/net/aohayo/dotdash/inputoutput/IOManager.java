@@ -3,6 +3,7 @@ package net.aohayo.dotdash.inputoutput;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -90,6 +91,7 @@ public class IOManager implements TextInput.InputListener {
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
                                 startOutputs();
+                                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
                                 return true;
                             case MotionEvent.ACTION_UP:
                                 stopOutputs();
